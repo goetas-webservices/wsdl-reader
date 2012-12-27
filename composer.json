@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.3.2",
         "goetas/xmldom": "*",
-        "goetas/goetas-xsd-reader": "*",
+        "goetas/goetas-xsd-reader": "*"
     },
 	"target-dir": "goetas/xml/wsdl",
     "autoload": {
