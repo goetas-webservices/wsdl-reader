@@ -15,9 +15,8 @@
         "goetas/xmldom": "*",
         "goetas/goetas-xsd-reader": "*"
     },
-	"target-dir": "goetas/xml/wsdl",
     "autoload": {
-        "psr-0": { "goetas\\xml\\wsdl": "" }
+        "psr-0": { "goetas\\xml\\wsdl": "src/" }
     },
     "minimum-stability": "dev"
 }
