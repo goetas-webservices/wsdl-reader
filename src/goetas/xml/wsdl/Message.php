@@ -6,7 +6,7 @@ use goetas\xml\XMLDomElement;
 use InvalidArgumentException;
 class Message extends WsdlElement{
 	/**
-	 * 
+	 *
 	 * @var XMLDomElement
 	 */
 	protected $data;
@@ -17,7 +17,7 @@ class Message extends WsdlElement{
 		$parts =  $msg->query("wsdl:part", array("wsdl"=>Wsdl::WSDL_NS));
 		foreach ($parts as $part) {
 			$this->parts[$part->getAttribute("name")]=new MessagePart($this, $part);
-		}	
+		}
 		$this->data = $msg;
 	}
 	/**
@@ -27,11 +27,23 @@ class Message extends WsdlElement{
 		return $this->parts;
 	}
 	/**
-	 * 
+	 *
+	 * @param string $name
+	 * @throws InvalidArgumentException
+	 * @return \goetas\xml\wsdl\MessagePart
+	 */
+	public function getPart($name) {
+		if(isset($this->parts[$name])){
+			return $this->parts[$name];
+		}
+		throw new InvalidArgumentException("Non trovo il message part [$name]");
+	}
+	/**
+	 *
 	 * return XMLDomElement
 	 */
 	public function getDomElement() {
 		return $this->data;
 	}
-	
+
 }

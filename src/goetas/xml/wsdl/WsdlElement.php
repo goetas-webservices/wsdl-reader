@@ -6,7 +6,7 @@ use goetas\xml\XMLDomElement;
 use InvalidArgumentException;
 abstract class WsdlElement {
 	/**
-	 * 
+	 *
 	 * @var XMLDomElement
 	 */
 	protected $data;
@@ -21,7 +21,7 @@ abstract class WsdlElement {
 		$this->ns = $ns;
 	}
 	/**
-	 * 
+	 *
 	 * Get the wsdl
 	 * @return Wsdl
 	 */
@@ -35,8 +35,8 @@ abstract class WsdlElement {
 		return $this->ns;
 	}
 	/**
-	 * 
-	 * return XMLDomElement
+	 *
+	 * @return \goetas\xml\XMLDomElement
 	 */
 	public function getDomElement() {
 		return $this->data;

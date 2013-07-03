@@ -15,6 +15,9 @@ class BindingMessage extends WsdlElement{
 		$this->data = $xml;
 		$this->message = $message;
 	}
+	/**
+	 * @return \goetas\xml\XMLDomElement
+	 */
 	public function getDomElement() {
 		return $this->data;
 	}
@@ -24,5 +27,5 @@ class BindingMessage extends WsdlElement{
 	public function getMessage() {
 		return $this->message;
 	}
-	
+
 }
