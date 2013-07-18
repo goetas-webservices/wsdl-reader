@@ -18,7 +18,9 @@
     "autoload": {
         "psr-0": { "goetas\\xml\\wsdl": "src/" }
     },
-    "branch-alias": {
-        "dev-master": "1.0-dev"
+    "extra":{
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
     }
 }
