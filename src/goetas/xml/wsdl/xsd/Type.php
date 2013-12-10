@@ -1,5 +1,5 @@
 <?php
 namespace goetas\xml\wsdl\xsd;
-class Type extends TypeDefinition {
-	
+class Type extends TypeDefinition
+{
 }

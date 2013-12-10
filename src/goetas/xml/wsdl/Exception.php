@@ -1,4 +1,5 @@
 <?php
-namespace goetas\xml\wsdl; 
-class Exception extends \Exception{
+namespace goetas\xml\wsdl;
+class Exception extends \Exception
+{
 }
