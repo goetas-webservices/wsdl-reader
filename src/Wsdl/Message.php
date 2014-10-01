@@ -5,21 +5,16 @@ use goetas\xml\XMLDomElement;
 use InvalidArgumentException;
 class Message extends WsdlElement
 {
-    /**
-     *
-     * @var XMLDomElement
-     */
-    protected $data;
+    protected $name;
     protected $parts=array();
-    public function __construct(Wsdl $wsdl, XMLDomElement $msg)
+    public function __construct(Wsdl $wsdl)
     {
-        $ns = $msg->ownerDocument->documentElement->getAttribute("targetNamespace");
-        parent::__construct($wsdl, $msg->getAttribute("name"), $ns);
-        $parts =  $msg->query("wsdl:part", array("wsdl"=>Wsdl::WSDL_NS));
-        foreach ($parts as $part) {
-            $this->parts[$part->getAttribute("name")]=new MessagePart($this, $part);
-        }
-        $this->data = $msg;
+        parent::__construct($wsdl);
+        $this->name = $name;
+    }
+
+    public function addPart(MessagePart $part) {
+        $this->parts[$part->getName()]=$part;
     }
     /**
      * @return MessagePart[]

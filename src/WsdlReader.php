@@ -2,6 +2,11 @@
 namespace Goetas\XML\WSDLReader;
 
 use Goetas\XML\WSDLReader\Wsdl\Wsdl;
+use Goetas\XML\WSDLReader\Wsdl\utils\UrlUtils;
+use Goetas\XML\WSDLReader\Wsdl\Message;
+use Goetas\XML\WSDLReader\Wsdl\MessagePart;
+use Goetas\XML\WSDLReader\Wsdl\PortType;
+use Goetas\XML\WSDLReader\Wsdl\Operation;
 class WsdlReader
 {
 	const WSDL_NS = "hhttp://wsdls.xmlsoap.org/wsdl";
@@ -12,20 +17,9 @@ class WsdlReader
 
     private $loadedFiles = array();
 
-    private static $globalWsdlInfo = array(
-        self::XML_NS => 'http://www.w3.org/2001/xml.xsd',
-        self::XSD_NS => 'http://www.w3.org/2001/XMLWsdl.xsd'
-    );
-
     public function __construct()
     {
-        $this->addKnownWsdlLocation('http://www.w3.org/2001/xml.xsd', __DIR__ . '/Resources/xml.xsd');
-        $this->addKnownWsdlLocation('http://www.w3.org/2001/XMLWsdl.xsd', __DIR__ . '/Resources/XMLWsdl.xsd');
-    }
 
-    public function addKnownWsdlLocation($remote, $local)
-    {
-        $this->knowLocationWsdls[$remote] = $local;
     }
 
     private function loadAttributeGroup(Wsdl $wsdl, DOMElement $node)
@@ -148,159 +142,54 @@ class WsdlReader
         return $functions;
     }
 
-    private function loadElement(Wsdl $wsdl, DOMElement $node)
+    private function loadMessage(Wsdl $wsdl, DOMElement $node)
     {
-        $element = new Element($wsdl, $node->getAttribute("name"));
-        $element->setDoc($this->getDocumentation($node));
+        $message = new Message($wsdl, $node->getAttribute("name"));
+        $message->setDoc($this->getDocumentation($node));
 
-        $this->fillItem($element, $node);
-
-        if ($node->hasAttribute("maxOccurs")) {
-            $element->setMax($node->getAttribute("maxOccurs") == "unbounded" ? - 1 : (int)$node->getAttribute("maxOccurs"));
+        foreach ($node->childNodes as $childNode) {
+            switch ($childNode->localName) {
+                case 'part':
+                    $part = $this->loadMessagePart($wsdl, $childNode);
+                    $message->addPart($part);
+                    break;
+            }
         }
-        if ($node->hasAttribute("minOccurs")) {
-            $element->setMin((int)$node->getAttribute("minOccurs"));
-        }
-        if ($node->hasAttribute("nillable")) {
-            $element->setNil($node->getAttribute("nillable") == "true");
-        }
-        if ($node->hasAttribute("form")) {
-            $element->setQualified($node->getAttribute("form") == "qualified");
-        }
-        return $element;
+        return $message;
     }
 
-    private function loadElementRef(ElementDef $referencedElement, DOMElement $node)
+    private function loadMessagePart(Wsdl $wsdl, DOMElement $node)
     {
-        $element = new ElementRef($referencedElement);
-        $element->setDoc($this->getDocumentation($node));
-
-        if ($node->hasAttribute("maxOccurs")) {
-            $element->setMax($node->getAttribute("maxOccurs") == "unbounded" ? - 1 : (int)$node->getAttribute("maxOccurs"));
-        }
-        if ($node->hasAttribute("minOccurs")) {
-            $element->setMin((int)$node->getAttribute("minOccurs"));
-        }
-        if ($node->hasAttribute("nillable")) {
-            $element->setNil($node->getAttribute("nillable") == "true");
-        }
-        if ($node->hasAttribute("form")) {
-            $element->setQualified($node->getAttribute("form") == "qualified");
-        }
-
-        return $element;
+        $message = new MessagePart($wsdl, $node->getAttribute("name"));
+        $message->setDoc($this->getDocumentation($node));
+        // @todo @element|@type
+        return $message;
     }
 
-
-    private function loadAttributeRef(AttributeDef $referencedAttribiute, DOMElement $node)
+    private function loadPortType(Wsdl $wsdl, DOMElement $node)
     {
-        $attribute = new AttributeRef($referencedAttribiute);
+        $port = new PortType($wsdl, $node->getAttribute("name"));
+        $port->setDoc($this->getDocumentation($node));
+
+        foreach ($node->childNodes as $childNode) {
+            switch ($childNode->localName) {
+                case 'operation':
+                    $operation = $this->loadOperation($wsdl, $childNode);
+                    $port->addOperation($operation);
+                    break;
+            }
+        }
+        return $port;
+    }
+
+    private function loadOperation(Wsdl $wsdl, DOMElement $node)
+    {
+        $attribute = new Operation($wsdl);
         $attribute->setDoc($this->getDocumentation($node));
 
-        if ($node->hasAttribute("nillable")) {
-            $attribute->setNil($node->getAttribute("nillable") == "true");
-        }
-        if ($node->hasAttribute("form")) {
-            $attribute->setQualified($node->getAttribute("form") == "qualified");
-        }
-        if ($node->hasAttribute("use")) {
-            $attribute->setUse($node->getAttribute("use"));
-        }
         return $attribute;
     }
 
-    private function loadSequence(ElementContainer $elementContainer, DOMElement $node)
-    {
-        foreach ($node->childNodes as $childNode) {
-
-            switch ($childNode->localName) {
-                case 'element':
-                    if ($childNode->hasAttribute("ref")) {
-                        $referencedElement = $this->findSomething('findElement', $elementContainer->getWsdl(), $node, $childNode->getAttribute("ref"));
-                        $element = $this->loadElementRef($referencedElement, $childNode);
-                    } else {
-                        $element = $this->loadElement($elementContainer->getWsdl(), $childNode);
-                    }
-                    $elementContainer->addElement($element);
-                    break;
-                case 'group':
-                    $element = $this->findSomething('findGroup', $elementContainer->getWsdl(), $node, $childNode->getAttribute("ref"));
-                    $elementContainer->addElement($element);
-                    break;
-            }
-        }
-    }
-
-    private function loadGroup(Wsdl $wsdl, DOMElement $node)
-    {
-        $type = new Group($wsdl, $node->getAttribute("name"));
-        $type->setDoc($this->getDocumentation($node));
-        $wsdl->addGroup($type);
-
-        return function () use($type, $node)
-        {
-            foreach ($node->childNodes as $childNode) {
-                switch ($childNode->localName) {
-                    case 'sequence':
-                    case 'choice':
-                        $this->loadSequence($type, $childNode);
-                        break;
-                }
-            }
-        };
-    }
-
-    private function loadComplexType(Wsdl $wsdl, DOMElement $node, $callback = null)
-    {
-        $isSimple = false;
-
-        foreach ($node->childNodes as $childNode) {
-            if ($childNode->localName === "simpleContent") {
-                $isSimple = true;
-                break;
-            }
-        }
-
-        $type = $isSimple ? new ComplexTypeSimpleContent($wsdl, $node->getAttribute("name")) : new ComplexType($wsdl, $node->getAttribute("name"));
-
-        $type->setDoc($this->getDocumentation($node));
-        if ($node->getAttribute("name")) {
-            $wsdl->addType($type);
-        }
-
-        return function () use($type, $node, $wsdl, $callback)
-        {
-
-            $this->fillTypeNode($type, $node);
-
-            foreach ($node->childNodes as $childNode) {
-                switch ($childNode->localName) {
-                    case 'sequence':
-                    case 'choice':
-                        $this->loadSequence($type, $childNode);
-                        break;
-                    case 'attribute':
-                        if ($childNode->hasAttribute("ref")) {
-                            $referencedAttribute = $this->findSomething('findAttribute', $wsdl, $node, $childNode->getAttribute("ref"));
-                            $attribute = $this->loadAttributeRef($referencedAttribute, $childNode);
-                        } else {
-                            $attribute = $this->loadAttribute($wsdl, $childNode);
-                        }
-
-                        $type->addAttribute($attribute);
-                        break;
-                    case 'attributeGroup':
-                        $attribute = $this->findSomething('findAttributeGroup', $wsdl, $node, $childNode->getAttribute("ref"));
-                        $type->addAttribute($attribute);
-                        break;
-                }
-            }
-
-            if ($callback) {
-                call_user_func($callback, $type);
-            }
-        };
-    }
 
     private function loadSimpleType(Wsdl $wsdl, DOMElement $node, $callback = null)
     {
@@ -328,121 +217,6 @@ class WsdlReader
         };
     }
 
-    private function loadUnion(SimpleType $type, DOMElement $node)
-    {
-        if ($node->hasAttribute("memberTypes")) {
-            $types = preg_split('/\s+/', $node->getAttribute("memberTypes"));
-            foreach ($types as $typeName) {
-                $type->addUnion($this->findSomething('findType', $type->getWsdl(), $node, $typeName));
-            }
-        }
-        $addCallback = function ($unType) use($type)
-        {
-            $type->addUnion($unType);
-        };
-
-        foreach ($node->childNodes as $childNode) {
-            switch ($childNode->localName) {
-                case 'simpleType':
-                    call_user_func($this->loadSimpleType($type->getWsdl(), $childNode, $addCallback));
-                    break;
-            }
-        }
-    }
-
-    private function fillTypeNode(Type $type, DOMElement $node)
-    {
-        foreach ($node->childNodes as $childNode) {
-            switch ($childNode->localName) {
-                case 'restriction':
-                    $this->loadRestriction($type, $childNode);
-                    break;
-                case 'extension':
-                    $this->loadExtension($type, $childNode);
-                    break;
-                case 'simpleContent':
-                case 'complexContent':
-                    $this->fillTypeNode($type, $childNode);
-                    break;
-            }
-        }
-    }
-
-    private function loadExtension(BaseComplexType $type, DOMElement $node)
-    {
-        $extension = new Extension();
-        $type->setExtension($extension);
-
-        if ($node->hasAttribute("base")) {
-            $parent = $this->findSomething('findType', $type->getWsdl(), $node, $node->getAttribute("base"));
-            $extension->setBase($parent);
-        }
-
-        foreach ($node->childNodes as $childNode) {
-            switch ($childNode->localName) {
-                case 'sequence':
-                case 'choice':
-                    $this->loadSequence($type, $childNode);
-                    break;
-                case 'attribute':
-                    if ($childNode->hasAttribute("ref")) {
-                        $attribute = $this->findSomething('findAttribute', $type->getWsdl(), $node, $childNode->getAttribute("ref"));
-                    } else {
-                        $attribute = $this->loadAttribute($type->getWsdl(), $childNode);
-                    }
-                    $type->addAttribute($attribute);
-                    break;
-                case 'attributeGroup':
-                    $attribute = $this->findSomething('findAttributeGroup', $type->getWsdl(), $node, $childNode->getAttribute("ref"));
-                    $type->addAttribute($attribute);
-                    break;
-            }
-        }
-    }
-
-    private function loadRestriction(Type $type, DOMElement $node)
-    {
-        $restriction = new Restriction();
-        $type->setRestriction($restriction);
-        if ($node->hasAttribute("base")) {
-            $restrictedType = $this->findSomething('findType', $type->getWsdl(), $node, $node->getAttribute("base"));
-            $restriction->setBase($restrictedType);
-        } else {
-            $addCallback = function ($restType) use($restriction)
-            {
-                $restriction->setBase($restType);
-            };
-
-            foreach ($node->childNodes as $childNode) {
-                switch ($childNode->localName) {
-                    case 'simpleType':
-                        call_user_func($this->loadSimpleType($type->getWsdl(), $childNode, $addCallback));
-                        break;
-                }
-            }
-        }
-        foreach ($node->childNodes as $childNode) {
-            if (in_array($childNode->localName,
-                [
-                    'enumeration',
-                    'pattern',
-                    'length',
-                    'minLength',
-                    'maxLength',
-                    'minInclusve',
-                    'maxInclusve',
-                    'minExclusve',
-                    'maxEXclusve'
-                ], true)) {
-                $restriction->addCheck($childNode->localName,
-                    [
-                        'value' => $childNode->getAttribute("value"),
-                        'doc' => $this->getDocumentation($childNode)
-                    ]);
-            }
-        }
-    }
-
     private static function splitParts(DOMElement $node, $typeName)
     {
         $namespace = null;
@@ -459,28 +233,6 @@ class WsdlReader
         );
     }
 
-    /**
-     *
-     * @param string $finder
-     * @param Wsdl $wsdl
-     * @param DOMElement $node
-     * @param string $typeName
-     * @throws TypeException
-     * @return ElementItem|Group|AttributeItem|AttribiuteGroup|Type
-     */
-    private function findSomething($finder, Wsdl $wsdl, DOMElement $node, $typeName)
-    {
-        list ($name, $namespace) = self::splitParts($node, $typeName);
-
-        $namespace = $namespace ?: $wsdl->getTargetNamespace();
-
-        try {
-            return $wsdl->$finder($name, $namespace);
-        } catch (TypeNotFoundException $e) {
-            throw new TypeException(sprintf("Can't find %s named {%s}#%s, at line %d in %s ", strtolower(substr($finder, 4)), $namespace, $name, $node->getLineNo(), $node->ownerDocument->documentURI), 0, $e);
-        }
-    }
-
     private function loadElementDef(Wsdl $wsdl, DOMElement $node)
     {
         $element = new ElementDef($wsdl, $node->getAttribute("name"));
@@ -489,31 +241,6 @@ class WsdlReader
         return function () use ($element, $node) {
             $this->fillItem($element, $node);
         };
-    }
-
-    private function fillItem(Item $element, DOMElement $node)
-    {
-        $element->setIsAnonymousType(! $node->hasAttribute("type"));
-
-        if ($element->isAnonymousType()) {
-
-            $addCallback = function ($type) use($element) {
-                $element->setType($type);
-            };
-            foreach ($node->childNodes as $childNode) {
-                switch ($childNode->localName) {
-                    case 'complexType':
-                        call_user_func($this->loadComplexType($element->getWsdl(), $childNode, $addCallback));
-                        break;
-                    case 'simpleType':
-                        call_user_func($this->loadSimpleType($element->getWsdl(), $childNode, $addCallback));
-                        break;
-                }
-            }
-        } else {
-            $type = $this->findSomething('findType', $element->getWsdl(), $node, $node->getAttribute("type"));
-            $element->setType($type);
-        }
     }
 
     private function loadImport(Wsdl $wsdl, DOMElement $node)
@@ -535,21 +262,13 @@ class WsdlReader
             $this->loadedFiles[$file] = $newWsdl = new Wsdl($file);
         }
 
-
-
-        foreach ($this->globalWsdls as $globaWsdlNS => $globaWsdl) {
-            $newWsdl->addWsdl($globaWsdl, $globaWsdlNS);
-        }
-
-        $xml = $this->getDOM(isset($this->knowLocationWsdls[$file])?$this->knowLocationWsdls[$file]:$file);
-
+        $xml = $this->getDOM($file);
 
         $callbacks = $this->rootNode($newWsdl, $xml->documentElement, $wsdl);
 
         if ($node->getAttribute("namespace")){
             $wsdl->addWsdl($newWsdl);
         }
-
 
         return function () use($callbacks)
         {
@@ -558,34 +277,6 @@ class WsdlReader
             }
         };
     }
-
-    private function addGlobalWsdls(Wsdl $rootWsdl)
-    {
-        if (! $this->globalWsdls) {
-
-            $callbacks = array();
-            foreach (self::$globalWsdlInfo as $namespace => $uri) {
-                $this->globalWsdls[$namespace] = $wsdl = new Wsdl($uri);
-
-                $xml = $this->getDOM($this->knowLocationWsdls[$uri]);
-                $callbacks = array_merge($callbacks, $this->rootNode($wsdl, $xml->documentElement));
-            }
-
-            $this->globalWsdls[self::XSD_NS]->addType(new SimpleType($this->globalWsdls[self::XSD_NS], "anySimpleType"));
-
-            $this->globalWsdls[self::XML_NS]->addWsdl($this->globalWsdls[self::XSD_NS], self::XSD_NS);
-            $this->globalWsdls[self::XSD_NS]->addWsdl($this->globalWsdls[self::XML_NS], self::XML_NS);
-
-            foreach ($callbacks as $callback) {
-                $callback();
-            }
-        }
-
-        foreach ($this->globalWsdls as $globalWsdl) {
-            $rootWsdl->addWsdl($globalWsdl, $globalWsdl->getTargetNamespace());
-        }
-    }
-
 
 
     /**
