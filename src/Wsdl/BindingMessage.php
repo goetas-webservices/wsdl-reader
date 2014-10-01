@@ -1,5 +1,5 @@
 <?php
-namespace goetas\xml\wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl;
 
 use goetas\xml\XMLDomElement;
 class BindingMessage extends WsdlElement
@@ -23,7 +23,7 @@ class BindingMessage extends WsdlElement
         return $this->data;
     }
     /**
-     * @return \goetas\xml\wsdl\Message
+     * @return \Goetas\XML\WSDLReader\Wsdl\Message
      */
     public function getMessage()
     {

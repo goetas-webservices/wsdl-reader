@@ -1,5 +1,5 @@
 <?php
-namespace goetas\xml\wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl;
 
 use goetas\xml\XMLDomElement;
 use InvalidArgumentException;
@@ -32,7 +32,7 @@ class Message extends WsdlElement
      *
      * @param  string                       $name
      * @throws InvalidArgumentException
-     * @return \goetas\xml\wsdl\MessagePart
+     * @return \Goetas\XML\WSDLReader\Wsdl\MessagePart
      */
     public function getPart($name)
     {

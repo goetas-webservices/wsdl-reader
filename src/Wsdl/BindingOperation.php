@@ -1,5 +1,5 @@
 <?php
-namespace goetas\xml\wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl;
 
 use goetas\xml\XMLDomElement;
 class BindingOperation extends WsdlElement
@@ -9,15 +9,15 @@ class BindingOperation extends WsdlElement
      */
     protected $operation;
     /**
-     * @var \goetas\xml\wsdl\BindingMessage
+     * @var \Goetas\XML\WSDLReader\Wsdl\BindingMessage
      */
     protected $input;
     /**
-     * @var \goetas\xml\wsdl\BindingMessage
+     * @var \Goetas\XML\WSDLReader\Wsdl\BindingMessage
      */
     protected $output;
     /**
-     * @var \goetas\xml\wsdl\BindingMessage[]
+     * @var \Goetas\XML\WSDLReader\Wsdl\BindingMessage[]
      */
     protected $faults;
 
@@ -65,7 +65,7 @@ class BindingOperation extends WsdlElement
     }
     /**
      *
-     * @return \goetas\xml\wsdl\Binding
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
      */
     public function getBinding()
     {
@@ -77,28 +77,28 @@ class BindingOperation extends WsdlElement
     }
     /**
      *
-     * @return \goetas\xml\wsdl\Operation
+     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
      */
     public function getOperation()
     {
         return $this->operation;
     }
     /**
-     * @return \goetas\xml\wsdl\BindingMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingMessage
      */
     public function getInput()
     {
         return $this->input;
     }
     /**
-     * @return \goetas\xml\wsdl\BindingMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingMessage
      */
     public function getOutput()
     {
         return $this->output;
     }
     /**
-     * @return \goetas\xml\wsdl\BindingMessage[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingMessage[]
      */
     public function getFaults()
     {

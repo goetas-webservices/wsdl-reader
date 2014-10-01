@@ -1,5 +1,5 @@
 <?php
-namespace goetas\xml\wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl;
 
 use goetas\xml\xsd\Element;
 use goetas\xml\xsd\Type;
