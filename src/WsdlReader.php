@@ -28,9 +28,15 @@ class WsdlReader
     const XSD_NS = "http://www.w3.org/2001/XMLSchema";
 
     private $loadedFiles = array();
+    /**
+     *
+     * @var \Goetas\XML\XSDReader\SchemaReader
+     */
+    private $reader;
 
     public function __construct()
     {
+        $this->reader = new SchemaReader();
     }
 
     /**
@@ -95,12 +101,12 @@ class WsdlReader
         return $functions;
     }
 
-    public function loadTypes(Definitions $definitions, \DOMElement $node)
+    private function loadTypes(Definitions $definitions, \DOMElement $node)
     {
         foreach ($node->childNodes as $k => $childNode) {
             if (($childNode instanceof \DOMElement) && $childNode->namespaceURI === self::XSD_NS && $childNode->localName == 'schema') {
-                $reader = new SchemaReader();
-                $schema = $reader->readNode($node, $childNode->ownerDocument->documentURI . "#" . $k);
+
+                $schema = $this->reader->readNode($childNode, $childNode->ownerDocument->documentURI . "#" . $k);
                 $definitions->getSchema()->addSchema($schema);
             }
         }
@@ -217,17 +223,22 @@ class WsdlReader
         $message->setDocumentation($this->getDocumentation($node));
         $definitions->addMessage($message);
 
-        return function () use($node, $message)
+        $functions = array();
+        foreach ($node->childNodes as $childNode) {
+            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
+                continue;
+            }
+            switch ($childNode->localName) {
+                case 'part':
+                    $functions[] = $this->loadMessagePart($message, $childNode);
+                    break;
+            }
+        }
+
+        return function () use($functions)
         {
-            foreach ($node->childNodes as $childNode) {
-                if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                    continue;
-                }
-                switch ($childNode->localName) {
-                    case 'part':
-                        call_user_func($this->loadMessagePart($message, $childNode));
-                        break;
-                }
+            foreach ($functions as $function) {
+                call_user_func($function);
             }
         };
     }
@@ -325,10 +336,10 @@ class WsdlReader
         $fault = new Fault($operation, $node->getAttribute("name"));
         $fault->setDocumentation($this->getDocumentation($node));
         $operation->setFault($fault);
-        return function () use($param, $operation, $node)
+        return function () use($fault, $operation, $node)
         {
             list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("message"));
-            $param->setMessage($operation->getDefinition()->findMessage($name, $ns));
+            $fault->setMessage($operation->getDefinition()->findMessage($name, $ns));
         };
     }
 
@@ -340,11 +351,12 @@ class WsdlReader
 
         return function () use($part, $node)
         {
-            return;
             if ($node->hasAttribute("element")) {
-                $part->setType($this->findElement($message->getDefinitions(), $node->hasAttribute("element")));
-            } elseif ($node->getAttribute("type")) {
-                $part->setElement($this->findType($message->getDefinitions(), $node->hasAttribute("type")));
+                list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("element"));
+                $part->setElement($part->getDefinition()->getSchema()->findElement($name, $ns));
+            } elseif ($node->hasAttribute("type")) {
+                list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("type"));
+                $part->setType($part->getDefinition()->getSchema()->findType($name, $ns));
             }
         };
     }
@@ -377,7 +389,7 @@ class WsdlReader
     {
         $file = UrlUtils::resolveRelativeUrl($node->ownerDocument->documentURI, $node->getAttribute("location"));
         if (isset($this->loadedFiles[$file])) {
-            $definitions->addDefinitions($this->loadedFiles[$file]);
+            $definitions->addImport($this->loadedFiles[$file]);
             return function ()
             {
             };
@@ -386,8 +398,12 @@ class WsdlReader
         if (! $node->getAttribute("namespace")) {
             $this->loadedFiles[$file] = $newDefinitions = $definitions;
         } else {
-            $this->loadedFiles[$file] = $newDefinitions = new Definitions($file);
+            $this->loadedFiles[$file] = $newDefinitions = new Definitions();
+            $schema = new Schema();
+            $schema->addSchema($this->reader->getGlobalSchema());
+            $newDefinitions->setSchema($schema);
         }
+
 
         $xml = $this->getDOM($file);
 
@@ -397,8 +413,7 @@ class WsdlReader
             $definitions->addImport($newDefinitions);
         }
 
-        return function () use($callbacks)
-        {
+        return function () use ($callbacks) {
             foreach ($callbacks as $callback) {
                 call_user_func($callback);
             }
@@ -411,7 +426,11 @@ class WsdlReader
      */
     public function readNode(\DOMNode $node, $file = 'wsdl.xsd')
     {
-        $this->loadedFiles[$file] = $rootDefinitions = new Definitions($file);
+        $this->loadedFiles[$file] = $rootDefinitions = new Definitions();
+        $schema = new Schema();
+        $schema->addSchema($this->reader->getGlobalSchema());
+
+        $rootDefinitions->setSchema($schema);
 
         $callbacks = $this->rootNode($rootDefinitions, $node);
 

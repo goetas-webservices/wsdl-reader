@@ -25,7 +25,7 @@ class Definitions extends ExtensibleDocumented
     protected $import = array();
 
     /**
-     * @var array
+     * @var \Goetas\XML\XSDReader\Schema\Schema
      */
     protected $schema;
 
@@ -49,9 +49,8 @@ class Definitions extends ExtensibleDocumented
      */
     protected $service = array();
 
-    public function __construct($defintion = null)
+    public function __construct()
     {
-        $this->schema = new Schema();
     }
 
     /**
@@ -97,6 +96,7 @@ class Definitions extends ExtensibleDocumented
     public function addImport(Definitions $import)
     {
         $this->import[] = $import;
+        $this->getSchema()->addSchema($import->getSchema());
         return $this;
     }
 
@@ -107,43 +107,25 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->import;
     }
-    /**
-     * @param $import \Goetas\XML\WSDLReader\Wsdl\Import[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\Definitions
-     */
-    public function setImport(array $import)
-    {
-        foreach ($import as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Definitions) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Import');
-            }
-        }
-        $this->import = $import;
-        return $this;
-    }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Types[]
+     * @return \Goetas\XML\XSDReader\Schema\Schema
      */
     public function getSchema()
     {
         return $this->schema;
     }
+
+
     /**
-     * @param $types \Goetas\XML\WSDLReader\Wsdl\Types[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
+     * @param Schema $schema
+     * @return \Goetas\XML\WSDLReader\Wsdl\Definitions
      */
-    public function setTypes(array $types)
+    public function setSchema(Schema $schema)
     {
-        foreach ($types as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Types) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Types');
-            }
-        }
-        $this->types = $types;
+        $this->schema = $schema;
         return $this;
     }
-
 
 
     /**

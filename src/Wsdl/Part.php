@@ -1,6 +1,8 @@
 <?php
 namespace Goetas\XML\WSDLReader\Wsdl;
 
+use Goetas\XML\XSDReader\Schema\Type\Type;
+use Goetas\XML\XSDReader\Schema\Element\ElementItem;
 /**
  * XSD Type: tPart
  */
@@ -53,7 +55,7 @@ class Part extends ExtensibleAttributesDocumented
 
 
     /**
-     * @return string
+     * @return \Goetas\XML\XSDReader\Schema\Element\ElementItem
      */
     public function getElement()
     {
@@ -63,7 +65,7 @@ class Part extends ExtensibleAttributesDocumented
      * @param $element string
      * @return \Goetas\XML\WSDLReader\Wsdl\Part
      */
-    public function setElement($element)
+    public function setElement(ElementItem $element)
     {
         $this->element = $element;
         return $this;
@@ -71,7 +73,7 @@ class Part extends ExtensibleAttributesDocumented
 
 
     /**
-     * @return string
+     * @return \Goetas\XML\XSDReader\Schema\Type\Type
      */
     public function getType()
     {
@@ -81,7 +83,7 @@ class Part extends ExtensibleAttributesDocumented
      * @param $type string
      * @return \Goetas\XML\WSDLReader\Wsdl\Part
      */
-    public function setType($type)
+    public function setType(Type $type)
     {
         $this->type = $type;
         return $this;
