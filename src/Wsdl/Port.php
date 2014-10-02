@@ -1,37 +1,65 @@
 <?php
 namespace Goetas\XML\WSDLReader\Wsdl;
 
-use goetas\xml\XMLDomElement;
-class Port extends WsdlElement
+/**
+ * XSD Type: tPort
+ */
+class Port extends ExtensibleDocumented
 {
+
     /**
-     * @var Binding
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
      */
     protected $binding;
 
-    protected $data;
 
-    public function __construct(Service $service, XMLDomElement $bind)
+    protected $service;
+
+    public function __construct(Service $service, $name)
     {
-        parent::__construct($service->getWsdl(),$bind->getAttribute("name"), $service->getNs());
-        $this->data = $bind;
-
-        list($prefix, $name) = explode(":", $bind->getAttribute("binding"));
-        $ns  = $bind->lookupNamespaceURI($prefix);
-
-        $this->binding = $service->getWsdl()->getBinding($ns, $name);
-
+        parent::__construct($service->getDefinition());
+        $this->name = $name;
+        $this->service = $service;
     }
-    public function getDomElement()
+
+    /**
+     * @return string
+     */
+    public function getName()
     {
-        return $this->data;
+        return $this->name;
     }
     /**
-     *
-     * @return Binding
+     * @param $name string
+     * @return \Goetas\XML\WSDLReader\Wsdl\Port
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
      */
     public function getBinding()
     {
         return $this->binding;
     }
+    /**
+     * @param $binding \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return \Goetas\XML\WSDLReader\Wsdl\Port
+     */
+    public function setBinding(Binding $binding)
+    {
+        $this->binding = $binding;
+        return $this;
+    }
+
 }

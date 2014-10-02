@@ -1,60 +1,134 @@
 <?php
 namespace Goetas\XML\WSDLReader\Wsdl;
 
-use goetas\xml\XMLDomElement;
-class Operation extends WsdlElement
+/**
+ * XSD Type: tOperation
+ */
+class Operation extends ExtensibleDocumented
 {
+
     /**
-     * @var Message
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $parameterOrder;
+
+    /**
+     * @var \Goetas\XML\WSDLReader\Wsdl\Param
      */
     protected $input;
+
     /**
-     * @var Message
+     * @var \Goetas\XML\WSDLReader\Wsdl\Param
      */
     protected $output;
+
     /**
-     * @var Message
+     * @var \Goetas\XML\WSDLReader\Wsdl\Fault
      */
-    protected $faults;
+    protected $fault;
 
-    protected $ns;
-    public function __construct(Wsdl $wsdl, PortType $port, XMLDomElement $operation)
+    protected $port;
+
+    public function __construct(PortType $port, $name)
     {
-        parent::__construct($wsdl,$operation->getAttribute("name"), $port->getNs());
-        foreach (array("input", "output") as $typeMessage) {
-            $r = $operation->query("wsdl:$typeMessage", array("wsdl"=>Wsdl::WSDL_NS));
-            if ($r->length) {
-                list($prefix, $name) = explode(":", $r->item(0)->getAttribute("message"));
-                $ns  = $operation->lookupNamespaceURI($prefix);
-                $this->{$typeMessage} = $wsdl->getMessage($ns, $name);
-            }
-        }
+        parent::__construct($port->getDefinition());
 
-        $faults = $operation->query("wsdl:fault", array("wsdl"=>Wsdl::WSDL_NS));
-        foreach ($faults as $fault) {
-            list($prefix, $name) = explode(":", $fault->getAttribute("message"));
-            $ns  = $fault->lookupNamespaceURI($prefix);
-            $this->faults[] = $wsdl->getMessage($ns, $name);
-        }
-        $this->ns = $operation->evaluate("string(ancestor::wsdl:definitions/@targetNamespace)", array("wsdl"=>Wsdl::WSDL_NS));
-
+        $this->name = $name;
+        $this->port = $port;
     }
-    public function getNs()
+
+    /**
+     * @return string
+     */
+    public function getName()
     {
-        return $this->ns;
+        return $this->name;
     }
     /**
-     * @return Message
+     * @param $name string
+     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getParameterOrder()
+    {
+        return $this->parameterOrder;
+    }
+    /**
+     * @param $parameterOrder string
+     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
+     */
+    public function setParameterOrder($parameterOrder)
+    {
+        $this->parameterOrder = $parameterOrder;
+        return $this;
+    }
+
+
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Param
      */
     public function getInput()
     {
         return $this->input;
     }
     /**
-     * @return Output
+     * @param $input \Goetas\XML\WSDLReader\Wsdl\Param
+     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
+     */
+    public function setInput(\Goetas\XML\WSDLReader\Wsdl\Param $input)
+    {
+        $this->input = $input;
+        return $this;
+    }
+
+
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Param
      */
     public function getOutput()
     {
         return $this->output;
     }
+    /**
+     * @param $output \Goetas\XML\WSDLReader\Wsdl\Param
+     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
+     */
+    public function setOutput(\Goetas\XML\WSDLReader\Wsdl\Param $output)
+    {
+        $this->output = $output;
+        return $this;
+    }
+
+
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Fault
+     */
+    public function getFault()
+    {
+        return $this->fault;
+    }
+    /**
+     * @param $fault \Goetas\XML\WSDLReader\Wsdl\Fault
+     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
+     */
+    public function setFault(\Goetas\XML\WSDLReader\Wsdl\Fault $fault)
+    {
+        $this->fault = $fault;
+        return $this;
+    }
+
 }

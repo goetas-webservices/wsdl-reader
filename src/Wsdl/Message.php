@@ -1,48 +1,76 @@
 <?php
 namespace Goetas\XML\WSDLReader\Wsdl;
 
-use goetas\xml\XMLDomElement;
-use InvalidArgumentException;
-class Message extends WsdlElement
+/**
+ * XSD Type: tMessage
+ */
+class Message extends ExtensibleDocumented
 {
+
+    /**
+     * @var string
+     */
     protected $name;
-    protected $parts=array();
-    public function __construct(Wsdl $wsdl)
+
+    /**
+     * @var array
+     */
+    protected $part = array();
+
+    public function __construct(Definitions $definition, $name)
     {
-        parent::__construct($wsdl);
+        parent::__construct($definition);
+
         $this->name = $name;
     }
 
-    public function addPart(MessagePart $part) {
-        $this->parts[$part->getName()]=$part;
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
     /**
-     * @return MessagePart[]
+     * @param $name string
+     * @return \Goetas\XML\WSDLReader\Wsdl\Message
      */
-    public function getParts()
+    public function setName($name)
     {
-        return $this->parts;
+        $this->name = $name;
+        return $this;
+    }
+
+
+
+    /**
+     * @param $part \Goetas\XML\WSDLReader\Wsdl\Part
+     */
+    public function addPart(\Goetas\XML\WSDLReader\Wsdl\Part $part)
+    {
+        $this->part[] = $part;
+        return $this;
     }
     /**
-     *
-     * @param  string                       $name
-     * @throws InvalidArgumentException
-     * @return \Goetas\XML\WSDLReader\Wsdl\MessagePart
+     * @return \Goetas\XML\WSDLReader\Wsdl\Part[]
      */
-    public function getPart($name)
+    public function getPart()
     {
-        if (isset($this->parts[$name])) {
-            return $this->parts[$name];
+        return $this->part;
+    }
+    /**
+     * @param $part \Goetas\XML\WSDLReader\Wsdl\Part[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\Message
+     */
+    public function setPart(array $part)
+    {
+        foreach ($part as $item) {
+            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Part) ) {
+                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Part');
+            }
         }
-        throw new InvalidArgumentException("Non trovo il message part [$name]");
-    }
-    /**
-     *
-     * return XMLDomElement
-     */
-    public function getDomElement()
-    {
-        return $this->data;
+        $this->part = $part;
+        return $this;
     }
 
 }

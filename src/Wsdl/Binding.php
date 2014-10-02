@@ -1,64 +1,99 @@
 <?php
 namespace Goetas\XML\WSDLReader\Wsdl;
 
-use goetas\xml\XMLDomElement;
-class Binding extends WsdlElement
+/**
+ * XSD Type: tBinding
+ */
+class Binding extends ExtensibleDocumented
 {
-    protected $operations = array();
-    protected $data;
+
     /**
-     * @var PortType
+     * @var string
      */
-    protected $portType;
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * @var array
+     */
+    protected $operation = array();
+
+
+    public function __construct(Definitions $def, $name)
+    {
+        parent::__construct($def);
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    /**
+     * @param $name string
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     */
     public function getType()
     {
-        ;
-    }
-    public function __construct(Wsdl $wsdl, XMLDomElement $bind)
-    {
-        $ns = $bind->ownerDocument->documentElement->getAttribute("targetNamespace");
-        parent::__construct($wsdl,$bind->getAttribute("name"), $ns);
-        $this->data = $bind;
-        list($prefix, $name) = explode(":", $bind->getAttribute("type"));
-        $ns  = $bind->lookupNamespaceURI($prefix);
-
-        $this->portType = $wsdl->getPortType($ns, $name);
-
-        $operations = $bind->query("wsdl:operation");
-        foreach ($operations as $operation) {
-            $this->operations[$operation->getAttribute("name")]=new BindingOperation($this, $operation);
-        }
-    }
-    public function getDomElement()
-    {
-        return $this->data;
+        return $this->type;
     }
     /**
-     *
-     * @return PortType
+     * @param $type string
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
      */
-    public function getPortType()
+    public function setType(PortType $type)
     {
-        return $this->portType;
+        $this->type = $type;
+        return $this;
+    }
+
+
+
+    /**
+     * @param $operation \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     */
+    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\BindingOperation $operation)
+    {
+        $this->operation[$operation->getName()] = $operation;
+        return $this;
     }
     /**
-     * @param $name
-     * @throws Exception
-     * @return BindingOperation
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation[]
      */
-    public function getOperation($name)
+    public function getOperation()
     {
-        if (!$name) {
-            throw new Exception("Operazione non valida su Binding '".$this->getName()."'");
+        return $this->operation;
+    }
+    /**
+     * @param $operation \Goetas\XML\WSDLReader\Wsdl\BindingOperation[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     */
+    public function setOperation(array $operation)
+    {
+        foreach ($operation as $item) {
+            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\BindingOperation) ) {
+                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\BindingOperation');
+            }
         }
-        if (!isset($this->operations[$name])) {
-            throw new Exception("Non trovo l'operazione '$name' su Binding '".$this->getName()."'");
-        }
+        $this->operation = $operation;
+        return $this;
+    }
 
-        return $this->operations[$name];
-    }
-    public function getOperations()
-    {
-        return $this->operations;
-    }
 }

@@ -1,107 +1,124 @@
 <?php
 namespace Goetas\XML\WSDLReader\Wsdl;
 
-use goetas\xml\XMLDomElement;
-class BindingOperation extends WsdlElement
+/**
+ * XSD Type: tBindingOperation
+ */
+class BindingOperation extends ExtensibleDocumented
 {
+
     /**
-     * @var Operation
+     * @var string
      */
-    protected $operation;
+    protected $name;
+
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\BindingMessage
+     * @var \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
      */
     protected $input;
+
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\BindingMessage
+     * @var \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
      */
     protected $output;
-    /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\BindingMessage[]
-     */
-    protected $faults;
 
     /**
-     * @var Binding
+     * @var array
      */
+    protected $fault = array();
+
     protected $binding;
 
-    public function __construct(Binding $binding, XMLDomElement $bind)
+    public function __construct(Binding $binding, $name)
     {
-        parent::__construct($binding->getWsdl(),$bind->getAttribute("name"), $binding->getNs());
-        $this->data = $bind;
+        parent::__construct($binding->getDefinition());
+        $this->name = $name;
         $this->binding = $binding;
-
-        $this->operation = $binding->getPortType()->getOperation($this->getName());
-
-        $parts = $bind->query("wsdl:input|wsdl:output|wsdl:fault", array("wsdl"=>Wsdl::WSDL_NS));
-
-        foreach ($parts as $part) {
-            switch ($part->localName) {
-                case "input":
-                    $this->input = new BindingMessage($this->operation->getInput(),$part);
-                break;
-                case "output":
-                    $this->output = new BindingMessage($this->operation->getOutput(),$part);
-                break;
-            }
-        }
     }
-    public function __toString()
-    {
-        $s = "BindingOperation: ";
-        if ($this->output) {
-            $s.=$this->output->getName();
-            $s .= " ";
-        }
-        $s .= $this->operation->getName();
-        $s .= "(";
-        if ($this->input) {
-            $s.=$this->input->getName();
-        }
-        $s .= ")";
 
-        return $s;
-    }
     /**
-     *
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return string
      */
-    public function getBinding()
+    public function getName()
     {
-        return $this->binding;
-    }
-    public function getDomElement()
-    {
-        return $this->data;
+        return $this->name;
     }
     /**
-     *
-     * @return \Goetas\XML\WSDLReader\Wsdl\Operation
+     * @param $name string
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
      */
-    public function getOperation()
+    public function setName($name)
     {
-        return $this->operation;
+        $this->name = $name;
+        return $this;
     }
+
+
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
      */
     public function getInput()
     {
         return $this->input;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingMessage
+     * @param $input \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     */
+    public function setInput(\Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage $input)
+    {
+        $this->input = $input;
+        return $this;
+    }
+
+
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
      */
     public function getOutput()
     {
         return $this->output;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingMessage[]
+     * @param $output \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
      */
-    public function getFaults()
+    public function setOutput(\Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage $output)
     {
-        return $this->output;
+        $this->output = $output;
+        return $this;
     }
+
+
+
+    /**
+     * @param $fault \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault
+     */
+    public function addFault(\Goetas\XML\WSDLReader\Wsdl\BindingOperationFault $fault)
+    {
+        $this->fault[] = $fault;
+        return $this;
+    }
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault[]
+     */
+    public function getFault()
+    {
+        return $this->fault;
+    }
+    /**
+     * @param $fault \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     */
+    public function setFault(array $fault)
+    {
+        foreach ($fault as $item) {
+            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault) ) {
+                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault');
+            }
+        }
+        $this->fault = $fault;
+        return $this;
+    }
+
 }

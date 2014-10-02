@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl\utils;
+namespace Goetas\XML\WSDLReader\Utils;
 
 class UrlUtils
 {
