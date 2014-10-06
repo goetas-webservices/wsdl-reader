@@ -15,12 +15,12 @@ class Operation extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     protected $input;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     protected $output;
 
@@ -47,7 +47,7 @@ class Operation extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function setName($name)
     {
@@ -57,15 +57,15 @@ class Operation extends ExtensibleDocumented
 
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     public function getInput()
     {
         return $this->input;
     }
     /**
-     * @param $input \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     * @param $input \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function setInput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $input)
     {
@@ -83,7 +83,7 @@ class Operation extends ExtensibleDocumented
     }
     /**
      * @param $output \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function setOutput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $output)
     {

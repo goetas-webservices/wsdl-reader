@@ -3,9 +3,7 @@ namespace Goetas\XML\WSDLReader;
 
 use DOMDocument;
 use DOMElement;
-
 use Goetas\XML\WSDLReader\Wsdl\Definitions;
-
 use Goetas\XML\WSDLReader\Wsdl\Message;
 use Goetas\XML\WSDLReader\Wsdl\PortType;
 use Goetas\XML\WSDLReader\Wsdl\PortType\Operation;
@@ -18,7 +16,6 @@ use Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessa
 use Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
 use Goetas\XML\WSDLReader\Wsdl\Message\Part;
 use Goetas\XML\WSDLReader\Wsdl\Service\Port;
-
 use Goetas\XML\XSDReader\Utils\UrlUtils;
 use Goetas\XML\XSDReader\Schema\Schema;
 use Goetas\XML\XSDReader\SchemaReader;
@@ -43,11 +40,10 @@ class DefinitionsReader
      */
     private $dispatcher;
 
-    public function __construct()
+    public function __construct(SchemaReader $reader, EventDispatcher $dispatcher)
     {
-        $this->reader = new SchemaReader();
-        $this->dispatcher = new EventDispatcher();
-
+        $this->reader = $reader ?: new SchemaReader();
+        $this->dispatcher = $dispatcher ?: new EventDispatcher();
     }
 
     /**
