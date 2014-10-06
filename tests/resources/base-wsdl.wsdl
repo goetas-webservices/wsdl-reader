@@ -25,18 +25,12 @@
         <wsdl:part name="parameters" type="tns:GetQuoteResponse" />
     </wsdl:message>
 
-    <wsdl:portType name="StockQuoteSoap">
-        <wsdl:operation name="GetQuote">
-            <wsdl:input message="tns:GetQuoteSoapIn" />
-            <wsdl:output message="tns:GetQuoteSoapOut" />
-        </wsdl:operation>
-         <wsdl:operation name="GetQuoteWithFault">
-            <wsdl:input message="tns:GetQuoteSoapIn" />
-            <wsdl:output message="tns:GetQuoteSoapOut" />
-            <wsdl:fault name="foo" message="tns:GetQuoteSoapIn"></wsdl:fault>
-        </wsdl:operation>
-    </wsdl:portType>
-
+    <wsdl:service name="StockQuote">
+        <wsdl:documentation>Foo</wsdl:documentation>
+        <wsdl:port name="StockQuoteSoap" binding="tns:StockQuoteSoap">
+        </wsdl:port>
+    </wsdl:service>
+    
     <wsdl:binding name="StockQuoteSoap" type="tns:StockQuoteSoap">
         <wsdl:operation name="GetQuote">
             <wsdl:input>
@@ -53,9 +47,21 @@
             <wsdl:fault name="bar"></wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
-    <wsdl:service name="StockQuote">
-        <wsdl:documentation>Foo</wsdl:documentation>
-        <wsdl:port name="StockQuoteSoap" binding="tns:StockQuoteSoap">
-        </wsdl:port>
-    </wsdl:service>
+    
+    
+        
+    <wsdl:portType name="StockQuoteSoap">
+        <wsdl:operation name="GetQuote">
+            <wsdl:input message="tns:GetQuoteSoapIn" />
+            <wsdl:output message="tns:GetQuoteSoapOut" />
+        </wsdl:operation>
+         <wsdl:operation name="GetQuoteWithFault">
+            <wsdl:input message="tns:GetQuoteSoapIn" />
+            <wsdl:output message="tns:GetQuoteSoapOut" />
+            <wsdl:fault name="foo" message="tns:GetQuoteSoapIn"></wsdl:fault>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    
+    
 </wsdl:definitions>

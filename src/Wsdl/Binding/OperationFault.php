@@ -43,4 +43,12 @@ class OperationFault extends ExtensibleDocumented
         return $this;
     }
 
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     */
+    public function getOperation()
+    {
+        return $this->operation;
+    }
+
 }
