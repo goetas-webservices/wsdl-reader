@@ -40,7 +40,7 @@ class DefinitionsReader
      */
     private $dispatcher;
 
-    public function __construct(SchemaReader $reader, EventDispatcher $dispatcher)
+    public function __construct(SchemaReader $reader = null, EventDispatcher $dispatcher = null)
     {
         $this->reader = $reader ?: new SchemaReader();
         $this->dispatcher = $dispatcher ?: new EventDispatcher();
