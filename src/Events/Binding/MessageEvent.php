@@ -26,25 +26,3 @@ class MessageEvent extends NodeEvent
     }
 }
 
-/*
-$operations = array();
-
-
-function wsdl_operation (OperationEvent $op){
-
-    $node = $op->getNode();
-    $operation = $op->getOperation();
-
-    $operations[spl_object_hash($operation)]["action"] = $node->xpath("operation/soapAction");
-}
-
-
-function wsdl_operation_input (MessageEvent $m){
-
-    $node = $m->getNode();
-    $operation = $m->getOperationMessage()->getOperation();
-
-    $operations[spl_object_hash($operation)]["body"] = $node->xpath("body/use");
-}
-*/
-
