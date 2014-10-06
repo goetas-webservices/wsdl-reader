@@ -411,7 +411,6 @@ class DefinitionsReader
             $newDefinitions->setSchema($schema);
         }
 
-
         $xml = $this->getDOM($file);
 
         $callbacks = $this->rootNode($newDefinitions, $xml->documentElement, $definitions);
@@ -431,7 +430,7 @@ class DefinitionsReader
      *
      * @return \oetas\XML\WSDLReader\Wsdl\Definitions
      */
-    public function readNode(\DOMNode $node, $file = 'wsdl.xsd')
+    public function readNode(\DOMElement $node, $file = 'wsdl.xsd')
     {
         $this->loadedFiles[$file] = $rootDefinitions = new Definitions();
         $schema = new Schema();

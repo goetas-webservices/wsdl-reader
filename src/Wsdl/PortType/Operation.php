@@ -20,17 +20,17 @@ class Operation extends ExtensibleDocumented
     protected $parameterOrder;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Param
+     * @var \Goetas\XML\WSDLReader\Wsdl\PortType\Param
      */
     protected $input;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Param
+     * @var \Goetas\XML\WSDLReader\Wsdl\PortType\Param
      */
     protected $output;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Fault
+     * @var \Goetas\XML\WSDLReader\Wsdl\PortType\Fault[]
      */
     protected $fault = array();
 

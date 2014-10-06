@@ -75,14 +75,14 @@ class Operation extends ExtensibleDocumented
 
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     public function getOutput()
     {
         return $this->output;
     }
     /**
-     * @param $output \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @param $output \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
      * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
      */
     public function setOutput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $output)
@@ -92,7 +92,7 @@ class Operation extends ExtensibleDocumented
     }
 
     /**
-     * @param $fault \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault
+     * @param $fault \Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault
      */
     public function addFault(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault $fault)
     {
@@ -100,7 +100,7 @@ class Operation extends ExtensibleDocumented
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault[]
      */
     public function getFaults()
     {

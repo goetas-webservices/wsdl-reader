@@ -13,7 +13,7 @@ class Binding extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @var \Goetas\XML\WSDLReader\Wsdl\PortType
      */
     protected $type;
 
@@ -56,7 +56,7 @@ class Binding extends ExtensibleDocumented
     }
     /**
      * @param $type string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
      */
     public function setType(PortType $type)
     {
@@ -88,19 +88,4 @@ class Binding extends ExtensibleDocumented
     {
         return $this->operation;
     }
-    /**
-     * @param $operation \Goetas\XML\WSDLReader\Wsdl\Binding\Operation[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
-     */
-    public function setOperation(array $operation)
-    {
-        foreach ($operation as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Binding\Operation) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\BindingOperation');
-            }
-        }
-        $this->operation = $operation;
-        return $this;
-    }
-
 }
