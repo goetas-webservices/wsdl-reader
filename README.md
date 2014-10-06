@@ -38,7 +38,7 @@ use Goetas\XML\WSDLReader\DefinitionsReader;
 $reader = new DefinitionsReader();
 $definitions = $reader->readFile("http://www.example.com/exaple.wsdl");
 
-// $schema is instance of Goetas\XML\XSDReader\Schema\Schema;
+// $definitions is instance of Goetas\XML\WSDLReader\Wsdl\Definitions;
 
 // Now you can navigate the entire WSDL structure
 
