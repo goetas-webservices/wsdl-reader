@@ -54,13 +54,6 @@ foreach ($definitions->getBindings() as $binding){
 foreach ($definitions->getMessages() as $message){
 
 }
-foreach ($definitions->getAttributes() as $attr){
-
-}
-foreach ($definitions->getAttributeGroups() as $attrGroup){
-
-}
-
 
 ```
 
