@@ -12,7 +12,10 @@ class OperationFault extends ExtensibleDocumented
      * @var string
      */
     protected $name;
-
+    /**
+     *
+     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     */
     protected $operation;
 
     public function __construct(Operation $operation, $name)

@@ -18,6 +18,10 @@ class Fault extends ExtensibleAttributesDocumented
      */
     protected $message;
 
+    /**
+     *
+     * @var \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
+     */
     protected $operation;
 
 

@@ -34,6 +34,9 @@ class Operation extends ExtensibleDocumented
      */
     protected $fault = array();
 
+    /**
+     * @var \Goetas\XML\WSDLReader\Wsdl\PortType
+     */
     protected $port;
 
     public function __construct(PortType $port, $name)

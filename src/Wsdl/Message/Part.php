@@ -11,7 +11,7 @@ use Goetas\XML\WSDLReader\Wsdl\Message;
 class Part extends ExtensibleAttributesDocumented
 {
     /**
-     * @var string
+     * @var \Goetas\XML\WSDLReader\Wsdl\Message
      */
     protected $message;
 
@@ -21,12 +21,12 @@ class Part extends ExtensibleAttributesDocumented
     protected $name;
 
     /**
-     * @var string
+     * @var \Goetas\XML\XSDReader\Schema\Element\ElementItem
      */
     protected $element;
 
     /**
-     * @var string
+     * @var \Goetas\XML\XSDReader\Schema\Type\Type
      */
     protected $type;
 

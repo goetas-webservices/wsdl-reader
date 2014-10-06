@@ -12,7 +12,10 @@ class OperationMessage extends ExtensibleDocumented
      * @var string
      */
     protected $name;
-
+    /**
+     *
+     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     */
     protected $operation;
 
 

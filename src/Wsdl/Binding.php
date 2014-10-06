@@ -13,7 +13,7 @@ class Binding extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var string
+     * @var \Goetas\XML\WSDLReader\Wsdl\Binding
      */
     protected $type;
 

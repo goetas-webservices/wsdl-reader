@@ -65,6 +65,16 @@ class DefinitionsReader
         }
         return $doc;
     }
+    private function loop(DOMElement $node){
+        $childs = array();
+        foreach ($node->childNodes as $childNode) {
+            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
+                continue;
+            }
+            $childs[] = $childNode;
+        }
+        return $childs;
+    }
     private function dispatch(){
         $this->dispatcher->dispatch('definitions', $definitions);
     }
@@ -87,10 +97,7 @@ class DefinitionsReader
         }
 
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             //$this->dispatch('definitions', new DefinitionsEvent($definitions));
 
             switch ($childNode->localName) {
@@ -136,10 +143,7 @@ class DefinitionsReader
         $definitions->addBinding($binding);
 
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             switch ($childNode->localName) {
                 case 'operation':
                     $functions[] = $this->loadBindingOperation($binding, $childNode);
@@ -164,10 +168,7 @@ class DefinitionsReader
         $binding->addOperation($bindingOperation);
 
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             switch ($childNode->localName) {
                 case 'input':
                     $functions[] = $this->loadBindingOperationMessage($bindingOperation, $childNode, true);
@@ -220,10 +221,7 @@ class DefinitionsReader
         $definitions->addService($service);
 
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             switch ($childNode->localName) {
                 case 'port':
                     $functions[] = $this->loadPort($service, $childNode);
@@ -247,10 +245,7 @@ class DefinitionsReader
         //$this->dispatch('message', new MessageEvent($definitions));
 
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             switch ($childNode->localName) {
                 case 'part':
                     $functions[] = $this->loadMessagePart($message, $childNode);
@@ -286,10 +281,7 @@ class DefinitionsReader
         $definitions->addPortType($port);
         //$this->dispatch('portType', new PortTypeEvent($port));
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             switch ($childNode->localName) {
                 case 'operation':
                     $functions[] = $this->loadPortTypeOperation($port, $childNode);
@@ -314,10 +306,7 @@ class DefinitionsReader
         //$this->dispatch('portTypeOperation', new PortTypeOperationEvent($port));
 
         $functions = array();
-        foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
-                continue;
-            }
+        foreach ($this->loop($node) as $childNode) {
             switch ($childNode->localName) {
                 case 'input':
                     $functions[] = $this->loadParam($operation, $childNode, true);
