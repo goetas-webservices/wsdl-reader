@@ -1,10 +1,11 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl\Binding;
 
+use Goetas\XML\WSDLReader\Wsdl\ExtensibleDocumented;
 /**
  * XSD Type: tBindingOperationMessage
  */
-class BindingOperationMessage extends ExtensibleDocumented
+class OperationMessage extends ExtensibleDocumented
 {
 
     /**
@@ -15,7 +16,7 @@ class BindingOperationMessage extends ExtensibleDocumented
     protected $operation;
 
 
-    public function __construct(BindingOperation $operation, $name)
+    public function __construct(Operation $operation, $name)
     {
         parent::__construct($operation->getDefinition());
 
@@ -32,7 +33,7 @@ class BindingOperationMessage extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     public function setName($name)
     {

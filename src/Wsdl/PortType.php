@@ -42,33 +42,26 @@ class PortType extends ExtensibleAttributesDocumented
 
 
     /**
-     * @param $operation \Goetas\XML\WSDLReader\Wsdl\Operation
+     * @param $operation \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
      */
-    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\Operation $operation)
+    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\PortType\Operation $operation)
     {
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Operation[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
      */
-    public function getOperation()
+    public function getOperation($name)
     {
-        return $this->operation;
+        return $this->operation[$name];
     }
     /**
-     * @param $operation \Goetas\XML\WSDLReader\Wsdl\Operation[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Operation[]
      */
-    public function setOperation(array $operation)
+    public function getOperations()
     {
-        foreach ($operation as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Operation) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Operation');
-            }
-        }
-        $this->operation = $operation;
-        return $this;
+        return $this->operation;
     }
 
 }

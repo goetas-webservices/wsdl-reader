@@ -1,10 +1,11 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl\Binding;
 
+use Goetas\XML\WSDLReader\Wsdl\ExtensibleDocumented;
 /**
  * XSD Type: tBindingOperationFault
  */
-class BindingOperationFault extends ExtensibleDocumented
+class OperationFault extends ExtensibleDocumented
 {
 
     /**
@@ -14,7 +15,7 @@ class BindingOperationFault extends ExtensibleDocumented
 
     protected $operation;
 
-    public function __construct(BindingOperation $operation, $name)
+    public function __construct(Operation $operation, $name)
     {
         parent::__construct($operation->getDefinition());
 
@@ -31,7 +32,7 @@ class BindingOperationFault extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault
      */
     public function setName($name)
     {

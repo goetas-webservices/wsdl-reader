@@ -88,8 +88,6 @@ class Definitions extends ExtensibleDocumented
         return $this;
     }
 
-
-
     /**
      * @param $import \Goetas\XML\WSDLReader\Wsdl\Definitions
      */
@@ -141,7 +139,9 @@ class Definitions extends ExtensibleDocumented
      */
     public function getMessage($name)
     {
-        return $this->message[$name];
+        if (isset($this->message[$name])) {
+            return $this->message[$name];
+        }
     }
     /**
      * @return \Goetas\XML\WSDLReader\Wsdl\Message[]
@@ -150,22 +150,6 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->message;
     }
-    /**
-     * @param $message \Goetas\XML\WSDLReader\Wsdl\Message[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
-     */
-    public function setMessage(array $message)
-    {
-        foreach ($message as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Message) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Message');
-            }
-        }
-        $this->message = $message;
-        return $this;
-    }
-
-
 
     /**
      * @param $portType \Goetas\XML\WSDLReader\Wsdl\PortType
@@ -191,22 +175,6 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->portType;
     }
-    /**
-     * @param $portType \Goetas\XML\WSDLReader\Wsdl\PortType[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
-     */
-    public function setPortType(array $portType)
-    {
-        foreach ($portType as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\PortType) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\PortType');
-            }
-        }
-        $this->portType = $portType;
-        return $this;
-    }
-
-
 
     /**
      * @param $binding \Goetas\XML\WSDLReader\Wsdl\Binding
@@ -221,7 +189,9 @@ class Definitions extends ExtensibleDocumented
      */
     public function getBinding($name)
     {
-        return $this->binding[$name];
+        if (isset($this->binding[$name])) {
+            return $this->binding[$name];
+        }
     }
     /**
      * @return \Goetas\XML\WSDLReader\Wsdl\Binding[]
@@ -230,22 +200,6 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->binding;
     }
-    /**
-     * @param $binding \Goetas\XML\WSDLReader\Wsdl\Binding[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
-     */
-    public function setBinding(array $binding)
-    {
-        foreach ($binding as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Binding) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Binding');
-            }
-        }
-        $this->binding = $binding;
-        return $this;
-    }
-
-
 
     /**
      * @param $service \Goetas\XML\WSDLReader\Wsdl\Service
@@ -256,37 +210,56 @@ class Definitions extends ExtensibleDocumented
         return $this;
     }
     /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Service
+     */
+    public function getService($name)
+    {
+        if (isset($this->service[$name])) {
+            return $this->service[$name];
+        }
+    }
+    /**
      * @return \Goetas\XML\WSDLReader\Wsdl\Service[]
      */
-    public function getService()
+    public function getServices()
     {
         return $this->service;
     }
-    /**
-     * @param $service \Goetas\XML\WSDLReader\Wsdl\Service[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
-     */
-    public function setService(array $service)
-    {
-        foreach ($service as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Service) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Service');
-            }
-        }
-        $this->service = $service;
-        return $this;
-    }
 
+    /**
+     * @param string $name
+     * @param string $namespace
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     */
     public function findBinding($name, $namespace = null)
     {
         return $this->findSomething('getBinding', $name, $namespace);
     }
 
+    /**
+     * @param string $name
+     * @param string $namespace
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     */
     public function findPortType($name, $namespace = null)
     {
         return $this->findSomething('getPortType', $name, $namespace);
     }
 
+    /**
+     * @param string $name
+     * @param string $namespace
+     * @return \Goetas\XML\WSDLReader\Wsdl\Service
+     */
+    public function findService($name, $namespace = null)
+    {
+        return $this->findSomething('getService', $name, $namespace);
+    }
+    /**
+     * @param string $name
+     * @param string $namespace
+     * @return \Goetas\XML\WSDLReader\Wsdl\Message
+     */
     public function findMessage($name, $namespace = null)
     {
         return $this->findSomething('getMessage', $name, $namespace);
@@ -298,7 +271,7 @@ class Definitions extends ExtensibleDocumented
      * @param string $name
      * @param string $namespace
      * @throws TypeNotFoundException
-     * @return \Goetas\XML\XSDReader\Schema\SchemaItem
+     * @return mixed
      */
     protected function findSomething($getter, $name, $namespace = null)
     {

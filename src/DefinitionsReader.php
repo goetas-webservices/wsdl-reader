@@ -3,24 +3,28 @@ namespace Goetas\XML\WSDLReader;
 
 use DOMDocument;
 use DOMElement;
+
 use Goetas\XML\WSDLReader\Wsdl\Definitions;
-use Goetas\XML\WSDLReader\Utils\UrlUtils;
+
 use Goetas\XML\WSDLReader\Wsdl\Message;
 use Goetas\XML\WSDLReader\Wsdl\PortType;
-use Goetas\XML\WSDLReader\Wsdl\Operation;
-use Goetas\XML\WSDLReader\Wsdl\Param;
-use Goetas\XML\WSDLReader\Wsdl\Fault;
+use Goetas\XML\WSDLReader\Wsdl\PortType\Operation;
+use Goetas\XML\WSDLReader\Wsdl\PortType\Param;
+use Goetas\XML\WSDLReader\Wsdl\PortType\Fault;
 use Goetas\XML\WSDLReader\Wsdl\Service;
 use Goetas\XML\WSDLReader\Wsdl\Binding;
-use Goetas\XML\WSDLReader\Wsdl\BindingOperation;
-use Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage;
-use Goetas\XML\WSDLReader\Wsdl\BindingOperationFault;
-use Goetas\XML\WSDLReader\Wsdl\Part;
-use Goetas\XML\WSDLReader\Wsdl\Port;
+use Goetas\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
+use Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
+use Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
+use Goetas\XML\WSDLReader\Wsdl\Message\Part;
+use Goetas\XML\WSDLReader\Wsdl\Service\Port;
+
+use Goetas\XML\XSDReader\Utils\UrlUtils;
 use Goetas\XML\XSDReader\Schema\Schema;
 use Goetas\XML\XSDReader\SchemaReader;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
-class WsdlReader
+class DefinitionsReader
 {
 
     const WSDL_NS = "http://schemas.xmlsoap.org/wsdl/";
@@ -33,10 +37,17 @@ class WsdlReader
      * @var \Goetas\XML\XSDReader\SchemaReader
      */
     private $reader;
+    /**
+     *
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    private $dispatcher;
 
     public function __construct()
     {
         $this->reader = new SchemaReader();
+        $this->dispatcher = new EventDispatcher();
+
     }
 
     /**
@@ -54,7 +65,9 @@ class WsdlReader
         }
         return $doc;
     }
-
+    private function dispatch(){
+        $this->dispatcher->dispatch('definitions', $definitions);
+    }
     /**
      *
      * @param Definitions $definitions
@@ -69,12 +82,16 @@ class WsdlReader
         if ($node->hasAttribute("targetNamespace")) {
             $definitions->setTargetNamespace($node->getAttribute("targetNamespace"));
         }
+        if ($node->hasAttribute("name")) {
+            $definitions->setName($node->getAttribute("name"));
+        }
 
         $functions = array();
         foreach ($node->childNodes as $childNode) {
             if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
                 continue;
             }
+            //$this->dispatch('definitions', new DefinitionsEvent($definitions));
 
             switch ($childNode->localName) {
                 case 'import':
@@ -131,7 +148,7 @@ class WsdlReader
         }
         return function () use($functions, $binding, $definitions, $node)
         {
-            list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("type"));
+            list ($name, $ns) = self::splitParts($node, $node->getAttribute("type"));
             $binding->setType($definitions->findPortType($name, $ns));
             foreach ($functions as $function) {
                 call_user_func($function);
@@ -153,10 +170,10 @@ class WsdlReader
             }
             switch ($childNode->localName) {
                 case 'input':
-                    $functions[] = $this->loadBindingOperationMessage($bindingOperation, $childNode);
+                    $functions[] = $this->loadBindingOperationMessage($bindingOperation, $childNode, true);
                     break;
                 case 'output':
-                    $functions[] = $this->loadBindingOperationMessage($bindingOperation, $childNode);
+                    $functions[] = $this->loadBindingOperationMessage($bindingOperation, $childNode, false);
                     break;
                 case 'fault':
                     $functions[] = $this->loadBindingOperationFault($bindingOperation, $childNode);
@@ -171,11 +188,15 @@ class WsdlReader
         };
     }
 
-    private function loadBindingOperationMessage(BindingOperation $bindingOperation, DOMElement $node)
+    private function loadBindingOperationMessage(BindingOperation $bindingOperation, DOMElement $node, $isInput)
     {
         $message = new BindingOperationMessage($bindingOperation, $node->getAttribute("name"));
         $message->setDocumentation($this->getDocumentation($node));
-        $bindingOperation->setInput($message);
+        if ($isInput) {
+            $bindingOperation->setInput($message);
+        } else {
+            $bindingOperation->setOutput($message);
+        }
 
         return function ()
         {
@@ -184,9 +205,9 @@ class WsdlReader
 
     private function loadBindingOperationFault(BindingOperation $bindingOperation, DOMElement $node)
     {
-        $message = new BindingOperationFault($bindingOperation, $node->getAttribute("name"));
-        $message->setDocumentation($this->getDocumentation($node));
-        $bindingOperation->setInput($message);
+        $fault = new BindingOperationFault($bindingOperation, $node->getAttribute("name"));
+        $fault->setDocumentation($this->getDocumentation($node));
+        $bindingOperation->addFault($fault);
         return function ()
         {
         };
@@ -223,6 +244,8 @@ class WsdlReader
         $message->setDocumentation($this->getDocumentation($node));
         $definitions->addMessage($message);
 
+        //$this->dispatch('message', new MessageEvent($definitions));
+
         $functions = array();
         foreach ($node->childNodes as $childNode) {
             if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
@@ -251,7 +274,7 @@ class WsdlReader
 
         return function () use($port, $service, $node)
         {
-            list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("binding"));
+            list ($name, $ns) = self::splitParts($node, $node->getAttribute("binding"));
             $port->setBinding($service->getDefinition()->findBinding($name, $ns));
         };
     }
@@ -261,7 +284,7 @@ class WsdlReader
         $port = new PortType($definitions, $node->getAttribute("name"));
         $port->setDocumentation($this->getDocumentation($node));
         $definitions->addPortType($port);
-
+        //$this->dispatch('portType', new PortTypeEvent($port));
         $functions = array();
         foreach ($node->childNodes as $childNode) {
             if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
@@ -286,8 +309,10 @@ class WsdlReader
         $operation = new Operation($port, $node->getAttribute("name"));
         $operation->setDocumentation($this->getDocumentation($node));
         $operation->setParameterOrder($node->getAttribute("parameterOrder") ?  : null);
-
         $port->addOperation($operation);
+
+        //$this->dispatch('portTypeOperation', new PortTypeOperationEvent($port));
+
         $functions = array();
         foreach ($node->childNodes as $childNode) {
             if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
@@ -326,8 +351,9 @@ class WsdlReader
 
         return function () use($param, $operation, $node)
         {
-            list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("message"));
+            list ($name, $ns) = self::splitParts($node, $node->getAttribute("message"));
             $param->setMessage($operation->getDefinition()->findMessage($name, $ns));
+            //$this->dispatch('param', new ParamEvent($param));
         };
     }
 
@@ -335,10 +361,10 @@ class WsdlReader
     {
         $fault = new Fault($operation, $node->getAttribute("name"));
         $fault->setDocumentation($this->getDocumentation($node));
-        $operation->setFault($fault);
+        $operation->addFault($fault);
         return function () use($fault, $operation, $node)
         {
-            list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("message"));
+            list ($name, $ns) = self::splitParts($node, $node->getAttribute("message"));
             $fault->setMessage($operation->getDefinition()->findMessage($name, $ns));
         };
     }
@@ -348,25 +374,17 @@ class WsdlReader
         $part = new Part($message, $node->getAttribute("name"));
         $part->setDocumentation($this->getDocumentation($node));
         $message->addPart($part);
-
+        //$this->dispatch('part', new MessageEvent($part));
         return function () use($part, $node)
         {
             if ($node->hasAttribute("element")) {
-                list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("element"));
+                list ($name, $ns) = self::splitParts($node, $node->getAttribute("element"));
                 $part->setElement($part->getDefinition()->getSchema()->findElement($name, $ns));
             } elseif ($node->hasAttribute("type")) {
-                list ($name, $ns) = WsdlReader::splitParts($node, $node->getAttribute("type"));
+                list ($name, $ns) = self::splitParts($node, $node->getAttribute("type"));
                 $part->setType($part->getDefinition()->getSchema()->findType($name, $ns));
             }
         };
-    }
-
-    private function loadOperation(Definitions $definitions, DOMElement $node)
-    {
-        $attribute = new Operation($definitions);
-        $attribute->setDocumentation($this->getDocumentation($node));
-
-        return $attribute;
     }
 
     private static function splitParts(DOMElement $node, $typeName)
@@ -422,7 +440,7 @@ class WsdlReader
 
     /**
      *
-     * @return \Goetas\XML\XSDReader\Wsdl\Definitions
+     * @return \oetas\XML\WSDLReader\Wsdl\Definitions
      */
     public function readNode(\DOMNode $node, $file = 'wsdl.xsd')
     {
@@ -443,7 +461,7 @@ class WsdlReader
 
     /**
      *
-     * @return \Goetas\XML\XSDReader\Wsdl\Definitions
+     * @return \oetas\XML\WSDLReader\Wsdl\Definitions
      */
     public function readString($content, $file = 'wsdl.xsd')
     {
@@ -458,7 +476,7 @@ class WsdlReader
 
     /**
      *
-     * @return \Goetas\XML\XSDReader\Wsdl\Definitions
+     * @return \Goetas\XML\WSDLReader\Wsdl\Definitions
      */
     public function readFile($file)
     {

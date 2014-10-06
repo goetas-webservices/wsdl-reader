@@ -1,6 +1,9 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl\Service;
 
+use Goetas\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+use Goetas\XML\WSDLReader\Wsdl\Service;
+use Goetas\XML\WSDLReader\Wsdl\Binding;
 /**
  * XSD Type: tPort
  */

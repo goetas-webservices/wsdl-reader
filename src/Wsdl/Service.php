@@ -45,9 +45,9 @@ class Service extends ExtensibleDocumented
 
 
     /**
-     * @param $port \Goetas\XML\WSDLReader\Wsdl\Port
+     * @param $port \Goetas\XML\WSDLReader\Wsdl\Service\Port
      */
-    public function addPort(\Goetas\XML\WSDLReader\Wsdl\Port $port)
+    public function addPort(\Goetas\XML\WSDLReader\Wsdl\Service\Port $port)
     {
         $this->port[$port->getName()] = $port;
         return $this;
@@ -58,24 +58,11 @@ class Service extends ExtensibleDocumented
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Port[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\Service\Port[]
      */
     public function getPorts()
     {
         return $this->port;
     }
-    /**
-     * @param $port \Goetas\XML\WSDLReader\Wsdl\Port[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service
-     */
-    public function setPort(array $port)
-    {
-        foreach ($port as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Port) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Port');
-            }
-        }
-        $this->port = $port;
-        return $this;
-    }
+
 }

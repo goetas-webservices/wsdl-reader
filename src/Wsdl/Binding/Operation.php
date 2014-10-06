@@ -1,10 +1,12 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl\Binding;
 
+use Goetas\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+use Goetas\XML\WSDLReader\Wsdl\Binding;
 /**
  * XSD Type: tBindingOperation
  */
-class BindingOperation extends ExtensibleDocumented
+class Operation extends ExtensibleDocumented
 {
 
     /**
@@ -65,7 +67,7 @@ class BindingOperation extends ExtensibleDocumented
      * @param $input \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
      * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
      */
-    public function setInput(\Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage $input)
+    public function setInput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $input)
     {
         $this->input = $input;
         return $this;
@@ -83,42 +85,26 @@ class BindingOperation extends ExtensibleDocumented
      * @param $output \Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage
      * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
      */
-    public function setOutput(\Goetas\XML\WSDLReader\Wsdl\BindingOperationMessage $output)
+    public function setOutput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $output)
     {
         $this->output = $output;
         return $this;
     }
 
-
-
     /**
      * @param $fault \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault
      */
-    public function addFault(\Goetas\XML\WSDLReader\Wsdl\BindingOperationFault $fault)
+    public function addFault(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault $fault)
     {
-        $this->fault[] = $fault;
+        $this->fault[$fault->getName()] = $fault;
         return $this;
     }
     /**
      * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault[]
      */
-    public function getFault()
+    public function getFaults()
     {
         return $this->fault;
-    }
-    /**
-     * @param $fault \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation
-     */
-    public function setFault(array $fault)
-    {
-        foreach ($fault as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\BindingOperationFault');
-            }
-        }
-        $this->fault = $fault;
-        return $this;
     }
 
 }

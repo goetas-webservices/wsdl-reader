@@ -1,6 +1,7 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace Goetas\XML\WSDLReader\Wsdl\PortType;
 
+use Goetas\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
 /**
  * XSD Type: tParam
  */
@@ -37,7 +38,7 @@ class Param extends ExtensibleAttributesDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Param
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Param
      */
     public function setName($name)
     {
@@ -55,7 +56,7 @@ class Param extends ExtensibleAttributesDocumented
     }
     /**
      * @param $message string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Param
+     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Param
      */
     public function setMessage($message)
     {

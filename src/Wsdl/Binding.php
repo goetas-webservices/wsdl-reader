@@ -69,26 +69,33 @@ class Binding extends ExtensibleDocumented
     /**
      * @param $operation \Goetas\XML\WSDLReader\Wsdl\BindingOperation
      */
-    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\BindingOperation $operation)
+    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\Binding\Operation $operation)
     {
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\BindingOperation[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
      */
-    public function getOperation()
+    public function getOperation($name)
+    {
+        return $this->operation[$name];
+    }
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation[]
+     */
+    public function getOperations()
     {
         return $this->operation;
     }
     /**
-     * @param $operation \Goetas\XML\WSDLReader\Wsdl\BindingOperation[]
+     * @param $operation \Goetas\XML\WSDLReader\Wsdl\Binding\Operation[]
      * @return \Goetas\XML\WSDLReader\Wsdl\Binding
      */
     public function setOperation(array $operation)
     {
         foreach ($operation as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\BindingOperation) ) {
+            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Binding\Operation) ) {
                 throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\BindingOperation');
             }
         }

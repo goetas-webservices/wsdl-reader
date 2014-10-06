@@ -41,36 +41,25 @@ class Message extends ExtensibleDocumented
         return $this;
     }
 
-
-
     /**
-     * @param $part \Goetas\XML\WSDLReader\Wsdl\Part
+     * @param $part \Goetas\XML\WSDLReader\Wsdl\Message\Part
      */
-    public function addPart(\Goetas\XML\WSDLReader\Wsdl\Part $part)
+    public function addPart(\Goetas\XML\WSDLReader\Wsdl\Message\Part $part)
     {
-        $this->part[] = $part;
+        if ($part->getName()) {
+            $this->part[$part->getName()] = $part;
+        } else {
+            $this->part[] = $part;
+        }
+
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Part[]
+     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part[]
      */
-    public function getPart()
+    public function getParts()
     {
         return $this->part;
-    }
-    /**
-     * @param $part \Goetas\XML\WSDLReader\Wsdl\Part[]
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message
-     */
-    public function setPart(array $part)
-    {
-        foreach ($part as $item) {
-            if (!($item instanceof \Goetas\XML\WSDLReader\Wsdl\Part) ) {
-                throw new \InvalidArgumentException('Argument 1 passed to ' . __METHOD__ . ' be an array of \Goetas\XML\WSDLReader\Wsdl\Part');
-            }
-        }
-        $this->part = $part;
-        return $this;
     }
 
 }

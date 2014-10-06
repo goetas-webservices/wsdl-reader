@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="bar" targetNamespace="http://www.example.com2" xmlns:tns="http://www.example.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:import location="base-wsdl.wsdl" namespace="http://www.example.com"/>
+</wsdl:definitions>
