@@ -61,5 +61,12 @@ class Message extends ExtensibleDocumented
     {
         return $this->part;
     }
+    /**
+     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part
+     */
+    public function getPart($name)
+    {
+    	return $this->part[$name];
+    }
 
 }
