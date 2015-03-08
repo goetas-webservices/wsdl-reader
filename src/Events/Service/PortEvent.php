@@ -1,10 +1,10 @@
 <?php
 namespace Goetas\XML\WSDLReader\Events\Service;
 
-use Goetas\XML\WSDLReader\Events\NodeEvent;
+use Goetas\XML\WSDLReader\Events\WsdlEvent;
 use Goetas\XML\WSDLReader\Wsdl\Service\Port;
 
-class PortEvent extends NodeEvent
+class PortEvent extends WsdlEvent
 {
 
     protected $port;

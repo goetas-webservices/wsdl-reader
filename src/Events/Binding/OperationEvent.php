@@ -3,9 +3,9 @@ namespace Goetas\XML\WSDLReader\Events\Binding;
 
 use Symfony\Component\EventDispatcher\Event;
 use Goetas\XML\WSDLReader\Wsdl\Binding\Operation;
-use Goetas\XML\WSDLReader\Events\NodeEvent;
+use Goetas\XML\WSDLReader\Events\WsdlEvent;
 
-class OperationEvent extends NodeEvent
+class OperationEvent extends WsdlEvent
 {
 
     protected $operation;

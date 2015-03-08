@@ -4,7 +4,7 @@ namespace Goetas\XML\WSDLReader\Events;
 use Symfony\Component\EventDispatcher\Event;
 use Goetas\XML\WSDLReader\Wsdl\PortType;
 
-class PortTypeEvent extends NodeEvent
+class PortTypeEvent extends WsdlEvent
 {
     /**
      * @var \Goetas\XML\WSDLReader\Wsdl\PortType

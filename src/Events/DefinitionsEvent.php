@@ -4,7 +4,7 @@ namespace Goetas\XML\WSDLReader\Events;
 use Symfony\Component\EventDispatcher\Event;
 use Goetas\XML\WSDLReader\Wsdl\Definitions;
 
-class DefinitionsEvent extends NodeEvent
+class DefinitionsEvent extends WsdlEvent
 {
     /**
      * @var \Goetas\XML\WSDLReader\Wsdl\Definitions

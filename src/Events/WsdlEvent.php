@@ -3,7 +3,7 @@ namespace Goetas\XML\WSDLReader\Events;
 
 use Symfony\Component\EventDispatcher\Event;
 
-abstract class NodeEvent extends Event
+abstract class WsdlEvent extends Event
 {
     /**
      *
