@@ -1,17 +1,17 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl\Message;
+namespace PhpWebservices\XML\WSDLReader\Wsdl\Message;
 
-use Goetas\XML\XSDReader\Schema\Type\Type;
-use Goetas\XML\XSDReader\Schema\Element\ElementItem;
-use Goetas\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
-use Goetas\XML\WSDLReader\Wsdl\Message;
+use PhpWebservices\XML\XSDReader\Schema\Type\Type;
+use PhpWebservices\XML\XSDReader\Schema\Element\ElementItem;
+use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
+use PhpWebservices\XML\WSDLReader\Wsdl\Message;
 /**
  * XSD Type: tPart
  */
 class Part extends ExtensibleAttributesDocumented
 {
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Message
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Message
      */
     protected $message;
 
@@ -21,12 +21,12 @@ class Part extends ExtensibleAttributesDocumented
     protected $name;
 
     /**
-     * @var \Goetas\XML\XSDReader\Schema\Element\ElementItem
+     * @var \PhpWebservices\XML\XSDReader\Schema\Element\ElementItem
      */
     protected $element;
 
     /**
-     * @var \Goetas\XML\XSDReader\Schema\Type\Type
+     * @var \PhpWebservices\XML\XSDReader\Schema\Type\Type
      */
     protected $type;
 
@@ -47,7 +47,7 @@ class Part extends ExtensibleAttributesDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     public function setName($name)
     {
@@ -57,7 +57,7 @@ class Part extends ExtensibleAttributesDocumented
 
 
     /**
-     * @return \Goetas\XML\XSDReader\Schema\Element\ElementItem
+     * @return \PhpWebservices\XML\XSDReader\Schema\Element\ElementItem
      */
     public function getElement()
     {
@@ -65,7 +65,7 @@ class Part extends ExtensibleAttributesDocumented
     }
     /**
      * @param $element string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     public function setElement(ElementItem $element)
     {
@@ -75,7 +75,7 @@ class Part extends ExtensibleAttributesDocumented
 
 
     /**
-     * @return \Goetas\XML\XSDReader\Schema\Type\Type
+     * @return \PhpWebservices\XML\XSDReader\Schema\Type\Type
      */
     public function getType()
     {
@@ -83,7 +83,7 @@ class Part extends ExtensibleAttributesDocumented
     }
     /**
      * @param $type string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     public function setType(Type $type)
     {

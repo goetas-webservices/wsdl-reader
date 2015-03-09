@@ -1,9 +1,9 @@
 <?php
-namespace Goetas\XML\WSDLReader\Events\PortType;
+namespace PhpWebservices\XML\WSDLReader\Events\PortType;
 
 use Symfony\Component\EventDispatcher\Event;
-use Goetas\XML\WSDLReader\Wsdl\PortType\Operation;
-use Goetas\XML\WSDLReader\Events\WsdlEvent;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
+use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
 
 class OperationEvent extends WsdlEvent
 {
@@ -17,7 +17,7 @@ class OperationEvent extends WsdlEvent
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
     public function getOperation()
     {

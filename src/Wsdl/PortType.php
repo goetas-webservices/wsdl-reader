@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * XSD Type: tPortType
@@ -31,7 +31,7 @@ class PortType extends ExtensibleAttributesDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
     public function setName($name)
     {
@@ -42,22 +42,22 @@ class PortType extends ExtensibleAttributesDocumented
 
 
     /**
-     * @param $operation \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
+     * @param $operation \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
-    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\PortType\Operation $operation)
+    public function addOperation(\PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation $operation)
     {
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
     public function getOperation($name)
     {
         return $this->operation[$name];
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Operation[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation[]
      */
     public function getOperations()
     {

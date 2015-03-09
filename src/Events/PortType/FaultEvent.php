@@ -1,10 +1,10 @@
 <?php
-namespace Goetas\XML\WSDLReader\Events\PortType;
+namespace PhpWebservices\XML\WSDLReader\Events\PortType;
 
 use Symfony\Component\EventDispatcher\Event;
-use Goetas\XML\WSDLReader\Wsdl\PortType\Operation;
-use Goetas\XML\WSDLReader\Wsdl\PortType\Fault;
-use Goetas\XML\WSDLReader\Events\WsdlEvent;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault;
+use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
 
 class FaultEvent extends WsdlEvent
 {
@@ -18,7 +18,7 @@ class FaultEvent extends WsdlEvent
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Fault
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      */
     public function getFault()
     {

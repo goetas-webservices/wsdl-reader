@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 class TypeNotFoundException extends \Exception
 {

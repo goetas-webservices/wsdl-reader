@@ -1,8 +1,8 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl\Binding;
+namespace PhpWebservices\XML\WSDLReader\Wsdl\Binding;
 
-use Goetas\XML\WSDLReader\Wsdl\ExtensibleDocumented;
-use Goetas\XML\WSDLReader\Wsdl\Binding;
+use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding;
 /**
  * XSD Type: tBindingOperation
  */
@@ -15,12 +15,12 @@ class Operation extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     protected $input;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     protected $output;
 
@@ -47,7 +47,7 @@ class Operation extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function setName($name)
     {
@@ -57,17 +57,17 @@ class Operation extends ExtensibleDocumented
 
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     public function getInput()
     {
         return $this->input;
     }
     /**
-     * @param $input \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @param $input \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
-    public function setInput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $input)
+    public function setInput(\PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage $input)
     {
         $this->input = $input;
         return $this;
@@ -75,39 +75,39 @@ class Operation extends ExtensibleDocumented
 
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     public function getOutput()
     {
         return $this->output;
     }
     /**
-     * @param $output \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @param $output \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
-    public function setOutput(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage $output)
+    public function setOutput(\PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage $output)
     {
         $this->output = $output;
         return $this;
     }
 
     /**
-     * @param $fault \Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault
+     * @param $fault \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault
      */
-    public function addFault(\Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault $fault)
+    public function addFault(\PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault $fault)
     {
         $this->fault[$fault->getName()] = $fault;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault[]
      */
     public function getFaults()
     {
         return $this->fault;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding
      */
     public function getBinding()
     {

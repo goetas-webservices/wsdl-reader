@@ -1,10 +1,10 @@
 <?php
-namespace Goetas\XML\WSDLReader\Events\Binding;
+namespace PhpWebservices\XML\WSDLReader\Events\Binding;
 
 use Symfony\Component\EventDispatcher\Event;
-use Goetas\XML\WSDLReader\Wsdl\Binding\Operation;
-use Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault;
-use Goetas\XML\WSDLReader\Events\WsdlEvent;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault;
+use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
 
 class FaultEvent extends WsdlEvent
 {
@@ -18,7 +18,7 @@ class FaultEvent extends WsdlEvent
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault
      */
     public function getFault()
     {

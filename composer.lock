@@ -35,7 +35,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Goetas\\XML\\XSDReader\\": "src/"
+                    "PhpWebservices\\XML\\XSDReader\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",

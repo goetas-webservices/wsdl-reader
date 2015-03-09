@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * XSD Type: tExtensibilityElement
@@ -22,7 +22,7 @@ abstract class ExtensibilityElement
     }
     /**
      * @param $required boolean
-     * @return \Goetas\XML\WSDLReader\Wsdl\ExtensibilityElement
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\ExtensibilityElement
      */
     public function setRequired($required)
     {

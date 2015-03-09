@@ -1,9 +1,9 @@
 <?php
-namespace Goetas\XML\WSDLReader\Events\Binding;
+namespace PhpWebservices\XML\WSDLReader\Events\Binding;
 
 use Symfony\Component\EventDispatcher\Event;
-use Goetas\XML\WSDLReader\Wsdl\Binding\Operation;
-use Goetas\XML\WSDLReader\Events\WsdlEvent;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation;
+use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
 
 class OperationEvent extends WsdlEvent
 {
@@ -17,7 +17,7 @@ class OperationEvent extends WsdlEvent
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function getOperation()
     {

@@ -1,38 +1,38 @@
 <?php
-namespace Goetas\XML\WSDLReader;
+namespace PhpWebservices\XML\WSDLReader;
 
 use DOMDocument;
 use DOMElement;
-use Goetas\XML\WSDLReader\Wsdl\Definitions;
-use Goetas\XML\WSDLReader\Wsdl\Message;
-use Goetas\XML\WSDLReader\Wsdl\PortType;
-use Goetas\XML\WSDLReader\Wsdl\PortType\Operation;
-use Goetas\XML\WSDLReader\Wsdl\PortType\Param;
-use Goetas\XML\WSDLReader\Wsdl\PortType\Fault;
-use Goetas\XML\WSDLReader\Wsdl\Service;
-use Goetas\XML\WSDLReader\Wsdl\Binding;
-use Goetas\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
-use Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
-use Goetas\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
-use Goetas\XML\WSDLReader\Wsdl\Message\Part;
-use Goetas\XML\WSDLReader\Wsdl\Service\Port;
-use Goetas\XML\XSDReader\Utils\UrlUtils;
-use Goetas\XML\XSDReader\Schema\Schema;
-use Goetas\XML\XSDReader\SchemaReader;
-use Goetas\XML\WSDLReader\Events\DefinitionsEvent;
+use PhpWebservices\XML\WSDLReader\Wsdl\Definitions;
+use PhpWebservices\XML\WSDLReader\Wsdl\Message;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param;
+use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault;
+use PhpWebservices\XML\WSDLReader\Wsdl\Service;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
+use PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
+use PhpWebservices\XML\WSDLReader\Wsdl\Message\Part;
+use PhpWebservices\XML\WSDLReader\Wsdl\Service\Port;
+use PhpWebservices\XML\XSDReader\Utils\UrlUtils;
+use PhpWebservices\XML\XSDReader\Schema\Schema;
+use PhpWebservices\XML\XSDReader\SchemaReader;
+use PhpWebservices\XML\WSDLReader\Events\DefinitionsEvent;
 use Symfony\Component\EventDispatcher\Event;
-use Goetas\XML\WSDLReader\Events\MessageEvent;
-use Goetas\XML\WSDLReader\Events\Message\PartEvent as MessagePartEvent;
-use Goetas\XML\WSDLReader\Events\PortTypeEvent;
-use Goetas\XML\WSDLReader\Events\PortType\OperationEvent;
-use Goetas\XML\WSDLReader\Events\PortType\ParamEvent;
-use Goetas\XML\WSDLReader\Events\PortType\FaultEvent;
-use Goetas\XML\WSDLReader\Events\BindingEvent;
-use Goetas\XML\WSDLReader\Events\Binding\OperationEvent as BindingOperationEvent;
-use Goetas\XML\WSDLReader\Events\Binding\MessageEvent as BindingOperationMessageEvent;
-use Goetas\XML\WSDLReader\Events\Binding\FaultEvent as BindingOperationFaultEvent;
-use Goetas\XML\WSDLReader\Events\ServiceEvent;
-use Goetas\XML\WSDLReader\Events\Service\PortEvent;
+use PhpWebservices\XML\WSDLReader\Events\MessageEvent;
+use PhpWebservices\XML\WSDLReader\Events\Message\PartEvent as MessagePartEvent;
+use PhpWebservices\XML\WSDLReader\Events\PortTypeEvent;
+use PhpWebservices\XML\WSDLReader\Events\PortType\OperationEvent;
+use PhpWebservices\XML\WSDLReader\Events\PortType\ParamEvent;
+use PhpWebservices\XML\WSDLReader\Events\PortType\FaultEvent;
+use PhpWebservices\XML\WSDLReader\Events\BindingEvent;
+use PhpWebservices\XML\WSDLReader\Events\Binding\OperationEvent as BindingOperationEvent;
+use PhpWebservices\XML\WSDLReader\Events\Binding\MessageEvent as BindingOperationMessageEvent;
+use PhpWebservices\XML\WSDLReader\Events\Binding\FaultEvent as BindingOperationFaultEvent;
+use PhpWebservices\XML\WSDLReader\Events\ServiceEvent;
+use PhpWebservices\XML\WSDLReader\Events\Service\PortEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -47,7 +47,7 @@ class DefinitionsReader
 
     /**
      *
-     * @var \Goetas\XML\XSDReader\SchemaReader
+     * @var \PhpWebservices\XML\XSDReader\SchemaReader
      */
     private $reader;
 
@@ -507,7 +507,7 @@ class DefinitionsReader
 
     /**
      *
-     * @return \Goetas\XML\WSDLReader\Wsdl\Definitions
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Definitions
      */
     public function readFile($file)
     {

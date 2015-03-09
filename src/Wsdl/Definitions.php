@@ -1,7 +1,7 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
-use Goetas\XML\XSDReader\Schema\Schema;
+use PhpWebservices\XML\XSDReader\Schema\Schema;
 /**
  * XSD Type: tDefinitions
  */
@@ -25,7 +25,7 @@ class Definitions extends ExtensibleDocumented
     protected $import = array();
 
     /**
-     * @var \Goetas\XML\XSDReader\Schema\Schema
+     * @var \PhpWebservices\XML\XSDReader\Schema\Schema
      */
     protected $schema;
 
@@ -62,7 +62,7 @@ class Definitions extends ExtensibleDocumented
     }
     /**
      * @param $targetNamespace string
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\TDefinitions
      */
     public function setTargetNamespace($targetNamespace)
     {
@@ -80,7 +80,7 @@ class Definitions extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\TDefinitions
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\TDefinitions
      */
     public function setName($name)
     {
@@ -89,7 +89,7 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @param $import \Goetas\XML\WSDLReader\Wsdl\Definitions
+     * @param $import \PhpWebservices\XML\WSDLReader\Wsdl\Definitions
      */
     public function addImport(Definitions $import)
     {
@@ -99,7 +99,7 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Definitions[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Definitions[]
      */
     public function getImports()
     {
@@ -107,7 +107,7 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @return \Goetas\XML\XSDReader\Schema\Schema
+     * @return \PhpWebservices\XML\XSDReader\Schema\Schema
      */
     public function getSchema()
     {
@@ -117,7 +117,7 @@ class Definitions extends ExtensibleDocumented
 
     /**
      * @param Schema $schema
-     * @return \Goetas\XML\WSDLReader\Wsdl\Definitions
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Definitions
      */
     public function setSchema(Schema $schema)
     {
@@ -127,15 +127,15 @@ class Definitions extends ExtensibleDocumented
 
 
     /**
-     * @param $message \Goetas\XML\WSDLReader\Wsdl\Message
+     * @param $message \PhpWebservices\XML\WSDLReader\Wsdl\Message
      */
-    public function addMessage(\Goetas\XML\WSDLReader\Wsdl\Message $message)
+    public function addMessage(\PhpWebservices\XML\WSDLReader\Wsdl\Message $message)
     {
         $this->message[$message->getName()] = $message;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message
      */
     public function getMessage($name)
     {
@@ -144,7 +144,7 @@ class Definitions extends ExtensibleDocumented
         }
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message[]
      */
     public function getMessages()
     {
@@ -152,16 +152,16 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @param $portType \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @param $portType \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
-    public function addPortType(\Goetas\XML\WSDLReader\Wsdl\PortType $portType)
+    public function addPortType(\PhpWebservices\XML\WSDLReader\Wsdl\PortType $portType)
     {
         $this->portType[$portType->getName()] = $portType;
         return $this;
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
     public function getPortType($name)
     {
@@ -169,7 +169,7 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType[]
      */
     public function getPortTypes()
     {
@@ -177,15 +177,15 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @param $binding \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @param $binding \PhpWebservices\XML\WSDLReader\Wsdl\Binding
      */
-    public function addBinding(\Goetas\XML\WSDLReader\Wsdl\Binding $binding)
+    public function addBinding(\PhpWebservices\XML\WSDLReader\Wsdl\Binding $binding)
     {
         $this->binding[$binding->getName()] = $binding;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding
      */
     public function getBinding($name)
     {
@@ -194,7 +194,7 @@ class Definitions extends ExtensibleDocumented
         }
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding[]
      */
     public function getBindings()
     {
@@ -202,15 +202,15 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
-     * @param $service \Goetas\XML\WSDLReader\Wsdl\Service
+     * @param $service \PhpWebservices\XML\WSDLReader\Wsdl\Service
      */
-    public function addService(\Goetas\XML\WSDLReader\Wsdl\Service $service)
+    public function addService(\PhpWebservices\XML\WSDLReader\Wsdl\Service $service)
     {
         $this->service[$service->getName()] = $service;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service
      */
     public function getService($name)
     {
@@ -219,7 +219,7 @@ class Definitions extends ExtensibleDocumented
         }
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service[]
      */
     public function getServices()
     {
@@ -229,7 +229,7 @@ class Definitions extends ExtensibleDocumented
     /**
      * @param string $name
      * @param string $namespace
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding
      */
     public function findBinding($name, $namespace = null)
     {
@@ -239,7 +239,7 @@ class Definitions extends ExtensibleDocumented
     /**
      * @param string $name
      * @param string $namespace
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
     public function findPortType($name, $namespace = null)
     {
@@ -249,7 +249,7 @@ class Definitions extends ExtensibleDocumented
     /**
      * @param string $name
      * @param string $namespace
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service
      */
     public function findService($name, $namespace = null)
     {
@@ -258,7 +258,7 @@ class Definitions extends ExtensibleDocumented
     /**
      * @param string $name
      * @param string $namespace
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message
      */
     public function findMessage($name, $namespace = null)
     {

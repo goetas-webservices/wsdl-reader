@@ -1,7 +1,7 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl\PortType;
+namespace PhpWebservices\XML\WSDLReader\Wsdl\PortType;
 
-use Goetas\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
+use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
 /**
  * XSD Type: tFault
  */
@@ -20,7 +20,7 @@ class Fault extends ExtensibleAttributesDocumented
 
     /**
      *
-     * @var \Goetas\XML\WSDLReader\Wsdl\PortType\Operation
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
     protected $operation;
 
@@ -42,7 +42,7 @@ class Fault extends ExtensibleAttributesDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Fault
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      */
     public function setName($name)
     {
@@ -60,7 +60,7 @@ class Fault extends ExtensibleAttributesDocumented
     }
     /**
      * @param $message string
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType\Fault
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      */
     public function setMessage($message)
     {

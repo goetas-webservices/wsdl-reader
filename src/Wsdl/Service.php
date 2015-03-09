@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * XSD Type: tService
@@ -34,7 +34,7 @@ class Service extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service
      */
     public function setName($name)
     {
@@ -45,9 +45,9 @@ class Service extends ExtensibleDocumented
 
 
     /**
-     * @param $port \Goetas\XML\WSDLReader\Wsdl\Service\Port
+     * @param $port \PhpWebservices\XML\WSDLReader\Wsdl\Service\Port
      */
-    public function addPort(\Goetas\XML\WSDLReader\Wsdl\Service\Port $port)
+    public function addPort(\PhpWebservices\XML\WSDLReader\Wsdl\Service\Port $port)
     {
         $this->port[$port->getName()] = $port;
         return $this;
@@ -58,7 +58,7 @@ class Service extends ExtensibleDocumented
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service\Port[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service\Port[]
      */
     public function getPorts()
     {

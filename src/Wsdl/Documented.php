@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * This type is extended by  component types to allow them to be documented
@@ -24,7 +24,7 @@ class Documented
     }
     /**
      * @param $documentation string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Documented
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Documented
      */
     public function setDocumentation($documentation)
     {

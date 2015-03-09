@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * XSD Type: tBinding
@@ -13,7 +13,7 @@ class Binding extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
     protected $type;
 
@@ -38,7 +38,7 @@ class Binding extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding
      */
     public function setName($name)
     {
@@ -48,7 +48,7 @@ class Binding extends ExtensibleDocumented
 
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
     public function getType()
     {
@@ -56,7 +56,7 @@ class Binding extends ExtensibleDocumented
     }
     /**
      * @param $type string
-     * @return \Goetas\XML\WSDLReader\Wsdl\PortType
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType
      */
     public function setType(PortType $type)
     {
@@ -67,22 +67,22 @@ class Binding extends ExtensibleDocumented
 
 
     /**
-     * @param $operation \Goetas\XML\WSDLReader\Wsdl\BindingOperation
+     * @param $operation \PhpWebservices\XML\WSDLReader\Wsdl\BindingOperation
      */
-    public function addOperation(\Goetas\XML\WSDLReader\Wsdl\Binding\Operation $operation)
+    public function addOperation(\PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation $operation)
     {
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function getOperation($name)
     {
         return $this->operation[$name];
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation[]
      */
     public function getOperations()
     {

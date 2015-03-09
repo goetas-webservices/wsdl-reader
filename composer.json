@@ -21,10 +21,10 @@
     },
     
     "autoload": {
-        "psr-4": { "Goetas\\XML\\WSDLReader\\": "src/" }
+        "psr-4": { "PhpWebservices\\XML\\WSDLReader\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Goetas\\XML\\WSDLReader\\Tests\\": "tests/" }
+        "psr-4": { "PhpWebservices\\XML\\WSDLReader\\Tests\\": "tests/" }
     },    
     "extra":{
         "branch-alias": {

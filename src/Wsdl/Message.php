@@ -1,5 +1,5 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl;
+namespace PhpWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * XSD Type: tMessage
@@ -33,7 +33,7 @@ class Message extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message
      */
     public function setName($name)
     {
@@ -42,9 +42,9 @@ class Message extends ExtensibleDocumented
     }
 
     /**
-     * @param $part \Goetas\XML\WSDLReader\Wsdl\Message\Part
+     * @param $part \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
-    public function addPart(\Goetas\XML\WSDLReader\Wsdl\Message\Part $part)
+    public function addPart(\PhpWebservices\XML\WSDLReader\Wsdl\Message\Part $part)
     {
         if ($part->getName()) {
             $this->part[$part->getName()] = $part;
@@ -55,14 +55,14 @@ class Message extends ExtensibleDocumented
         return $this;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part[]
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part[]
      */
     public function getParts()
     {
         return $this->part;
     }
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Message\Part
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     public function getPart($name)
     {

@@ -33,12 +33,12 @@ Getting started
 ---------------
 
 ```php
-use Goetas\XML\WSDLReader\DefinitionsReader;
+use PhpWebservices\XML\WSDLReader\DefinitionsReader;
 
 $reader = new DefinitionsReader();
 $definitions = $reader->readFile("http://www.example.com/exaple.wsdl");
 
-// $definitions is instance of Goetas\XML\WSDLReader\Wsdl\Definitions;
+// $definitions is instance of PhpWebservices\XML\WSDLReader\Wsdl\Definitions;
 // Now you can navigate the entire WSDL structure
 
 foreach ($definitions->getServices() as $service){

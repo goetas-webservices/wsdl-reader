@@ -1,7 +1,7 @@
 <?php
-namespace Goetas\XML\WSDLReader\Wsdl\Binding;
+namespace PhpWebservices\XML\WSDLReader\Wsdl\Binding;
 
-use Goetas\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
 /**
  * XSD Type: tBindingOperationMessage
  */
@@ -14,7 +14,7 @@ class OperationMessage extends ExtensibleDocumented
     protected $name;
     /**
      *
-     * @var \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
     protected $operation;
 
@@ -36,7 +36,7 @@ class OperationMessage extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\OperationMessage
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage
      */
     public function setName($name)
     {
@@ -45,7 +45,7 @@ class OperationMessage extends ExtensibleDocumented
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Binding\Operation
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
     public function getOperation()
     {

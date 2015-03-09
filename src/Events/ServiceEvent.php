@@ -1,13 +1,13 @@
 <?php
-namespace Goetas\XML\WSDLReader\Events;
+namespace PhpWebservices\XML\WSDLReader\Events;
 
 use Symfony\Component\EventDispatcher\Event;
-use Goetas\XML\WSDLReader\Wsdl\Service;
+use PhpWebservices\XML\WSDLReader\Wsdl\Service;
 
 class ServiceEvent extends WsdlEvent
 {
     /**
-     * @var \Goetas\XML\WSDLReader\Wsdl\Service
+     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Service
      */
     protected $Service;
 
@@ -18,7 +18,7 @@ class ServiceEvent extends WsdlEvent
     }
 
     /**
-     * @return \Goetas\XML\WSDLReader\Wsdl\Service
+     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service
      */
     public function getService()
     {
