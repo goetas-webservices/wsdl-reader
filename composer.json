@@ -1,5 +1,5 @@
 {
-    "name": "goetas/wsdl-reader",
+    "name": "php-webservices/wsdl-reader",
     "description": "Pure PHP WSDL parser",
     "keywords": ["xsd", "xml", "soap", "webservice", "wsdl"],
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "~5.4",
-        "goetas/xsd-reader": "~2.0@dev",
+        "php-webservices/xsd-reader": "~0.1",
         "symfony/event-dispatcher" : "~2.0"
     },
     "require-dev" : {
@@ -28,7 +28,7 @@
     },    
     "extra":{
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "0.1-dev"
         }
     }
 }

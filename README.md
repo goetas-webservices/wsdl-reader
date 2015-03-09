@@ -17,7 +17,7 @@ There are two recommended ways to install the `wsdl-reader` via [Composer](https
 * using the ``composer require`` command:
 
 ```bash
-composer require 'goetas/wsdl-reader:2.*'
+composer require 'php-webservices/wsdl-reader'
 ```
 
 * adding the dependency to your ``composer.json`` file:
@@ -25,7 +25,7 @@ composer require 'goetas/wsdl-reader:2.*'
 ```js
 "require": {
     ..
-    "goetas/wsdl-reader" : "2.*",
+    "php-webservices/wsdl-reader" : "~0.1",
     ..
 }
 ```
