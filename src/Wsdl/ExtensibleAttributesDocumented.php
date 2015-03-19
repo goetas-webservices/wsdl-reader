@@ -1,5 +1,5 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Wsdl;
+namespace GoetasWebservices\XML\WSDLReader\Wsdl;
 
 /**
  * XSD Type: tExtensibleAttributesDocumented

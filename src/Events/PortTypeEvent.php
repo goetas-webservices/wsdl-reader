@@ -1,13 +1,13 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Events;
+namespace GoetasWebservices\XML\WSDLReader\Events;
 
 use Symfony\Component\EventDispatcher\Event;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
 
 class PortTypeEvent extends WsdlEvent
 {
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
      */
     protected $PortType;
 
@@ -18,7 +18,7 @@ class PortTypeEvent extends WsdlEvent
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
      */
     public function getPortType()
     {

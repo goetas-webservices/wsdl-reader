@@ -1,13 +1,13 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Events;
+namespace GoetasWebservices\XML\WSDLReader\Events;
 
 use Symfony\Component\EventDispatcher\Event;
-use PhpWebservices\XML\WSDLReader\Wsdl\Definitions;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
 
 class DefinitionsEvent extends WsdlEvent
 {
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Definitions
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\Definitions
      */
     protected $definitions;
 
@@ -18,7 +18,7 @@ class DefinitionsEvent extends WsdlEvent
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Definitions
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Definitions
      */
     public function getDefinitions()
     {

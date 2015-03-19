@@ -1,38 +1,38 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader;
+namespace GoetasWebservices\XML\WSDLReader;
 
 use DOMDocument;
 use DOMElement;
-use PhpWebservices\XML\WSDLReader\Wsdl\Definitions;
-use PhpWebservices\XML\WSDLReader\Wsdl\Message;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault;
-use PhpWebservices\XML\WSDLReader\Wsdl\Service;
-use PhpWebservices\XML\WSDLReader\Wsdl\Binding;
-use PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
-use PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
-use PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
-use PhpWebservices\XML\WSDLReader\Wsdl\Message\Part;
-use PhpWebservices\XML\WSDLReader\Wsdl\Service\Port;
-use PhpWebservices\XML\XSDReader\Utils\UrlUtils;
-use PhpWebservices\XML\XSDReader\Schema\Schema;
-use PhpWebservices\XML\XSDReader\SchemaReader;
-use PhpWebservices\XML\WSDLReader\Events\DefinitionsEvent;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Message;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Service;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port;
+use GoetasWebservices\XML\XSDReader\Utils\UrlUtils;
+use GoetasWebservices\XML\XSDReader\Schema\Schema;
+use GoetasWebservices\XML\XSDReader\SchemaReader;
+use GoetasWebservices\XML\WSDLReader\Events\DefinitionsEvent;
 use Symfony\Component\EventDispatcher\Event;
-use PhpWebservices\XML\WSDLReader\Events\MessageEvent;
-use PhpWebservices\XML\WSDLReader\Events\Message\PartEvent as MessagePartEvent;
-use PhpWebservices\XML\WSDLReader\Events\PortTypeEvent;
-use PhpWebservices\XML\WSDLReader\Events\PortType\OperationEvent;
-use PhpWebservices\XML\WSDLReader\Events\PortType\ParamEvent;
-use PhpWebservices\XML\WSDLReader\Events\PortType\FaultEvent;
-use PhpWebservices\XML\WSDLReader\Events\BindingEvent;
-use PhpWebservices\XML\WSDLReader\Events\Binding\OperationEvent as BindingOperationEvent;
-use PhpWebservices\XML\WSDLReader\Events\Binding\MessageEvent as BindingOperationMessageEvent;
-use PhpWebservices\XML\WSDLReader\Events\Binding\FaultEvent as BindingOperationFaultEvent;
-use PhpWebservices\XML\WSDLReader\Events\ServiceEvent;
-use PhpWebservices\XML\WSDLReader\Events\Service\PortEvent;
+use GoetasWebservices\XML\WSDLReader\Events\MessageEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Message\PartEvent as MessagePartEvent;
+use GoetasWebservices\XML\WSDLReader\Events\PortTypeEvent;
+use GoetasWebservices\XML\WSDLReader\Events\PortType\OperationEvent;
+use GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent;
+use GoetasWebservices\XML\WSDLReader\Events\PortType\FaultEvent;
+use GoetasWebservices\XML\WSDLReader\Events\BindingEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Binding\OperationEvent as BindingOperationEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Binding\MessageEvent as BindingOperationMessageEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Binding\FaultEvent as BindingOperationFaultEvent;
+use GoetasWebservices\XML\WSDLReader\Events\ServiceEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Service\PortEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -47,7 +47,7 @@ class DefinitionsReader
 
     /**
      *
-     * @var \PhpWebservices\XML\XSDReader\SchemaReader
+     * @var \GoetasWebservices\XML\XSDReader\SchemaReader
      */
     private $reader;
 
@@ -124,22 +124,22 @@ class DefinitionsReader
                     $this->loadTypes($definitions, $childNode);
                     break;
                 case 'message':
-                    $functions[1][] = $this->loadMessage($definitions, $childNode);
+                    $functions[2][] = $this->loadMessage($definitions, $childNode);
                     break;
                 case 'portType':
-                    $functions[2][] = $this->loadPortType($definitions, $childNode);
+                    $functions[3][] = $this->loadPortType($definitions, $childNode);
                     break;
                 case 'binding':
-                    $functions[3][] = $this->loadBinding($definitions, $childNode);
+                    $functions[4][] = $this->loadBinding($definitions, $childNode);
                     break;
                 case 'service':
-                    $functions[4][] = $this->loadService($definitions, $childNode);
+                    $functions[1][] = $this->loadService($definitions, $childNode);
                     break;
             }
         }
-
+		ksort($functions);
         return array(
-            function () use($functions, $definitions, $node)
+            function () use ($functions, $definitions, $node)
             {
                 $this->dispatcher->dispatch('definitions_start', new DefinitionsEvent($definitions, $node));
                 foreach ($functions as $subFunctions) {
@@ -177,7 +177,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use($functions, $binding, $definitions, $node)
+        return function () use ($functions, $binding, $definitions, $node)
         {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("type"));
             $binding->setType($definitions->findPortType($name, $ns));
@@ -209,7 +209,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use($functions, $bindingOperation, $node)
+        return function () use ($functions, $bindingOperation, $node)
         {
             $this->dispatcher->dispatch('binding.operation', new BindingOperationEvent($bindingOperation, $node));
             foreach ($functions as $function) {
@@ -228,7 +228,7 @@ class DefinitionsReader
             $bindingOperation->setOutput($message);
         }
 
-        return function () use($message, $node)
+        return function () use ($message, $node)
         {
             $this->dispatcher->dispatch('binding.operation.message', new BindingOperationMessageEvent($message, $node));
         };
@@ -240,7 +240,7 @@ class DefinitionsReader
         $fault->setDocumentation($this->getDocumentation($node));
         $bindingOperation->addFault($fault);
 
-        return function () use($fault, $node)
+        return function () use ($fault, $node)
         {
             $this->dispatcher->dispatch('binding.operation.fault', new BindingOperationFaultEvent($fault, $node));
         };
@@ -260,7 +260,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use($functions, $service, $node)
+        return function () use ($functions, $service, $node)
         {
             $this->dispatcher->dispatch('service', new ServiceEvent($service, $node));
             foreach ($functions as $function) {
@@ -284,7 +284,7 @@ class DefinitionsReader
             }
         }
 
-        return function () use($functions, $message, $node)
+        return function () use ($functions, $message, $node)
         {
             $this->dispatcher->dispatch('message', new MessageEvent($message, $node));
             foreach ($functions as $function) {
@@ -298,7 +298,7 @@ class DefinitionsReader
         $port = new Port($service, $node->getAttribute("name"));
         $port->setDocumentation($this->getDocumentation($node));
         $service->addPort($port);
-        return function () use($port, $service, $node)
+        return function () use ($port, $service, $node)
         {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("binding"));
             $port->setBinding($service->getDefinition()
@@ -321,7 +321,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use($functions, $port, $node)
+        return function () use ($functions, $port, $node)
         {
             $this->dispatcher->dispatch('portType', new PortTypeEvent($port, $node));
             foreach ($functions as $function) {
@@ -351,7 +351,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use($functions, $operation, $node)
+        return function () use ($functions, $operation, $node)
         {
             $this->dispatcher->dispatch('portType.operation', new OperationEvent($operation, $node));
             foreach ($functions as $function) {
@@ -371,7 +371,7 @@ class DefinitionsReader
             $operation->setOutput($param);
         }
 
-        return function () use($param, $operation, $node)
+        return function () use ($param, $operation, $node)
         {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("message"));
             $param->setMessage($operation->getDefinition()
@@ -386,11 +386,10 @@ class DefinitionsReader
         $fault->setDocumentation($this->getDocumentation($node));
         $operation->addFault($fault);
 
-        return function () use($fault, $operation, $node)
+        return function () use ($fault, $operation, $node)
         {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("message"));
-            $fault->setMessage($operation->getDefinition()
-                ->findMessage($name, $ns));
+            $fault->setMessage($operation->getDefinition()->findMessage($name, $ns));
 
             $this->dispatcher->dispatch('portType.operation.fault', new FaultEvent($fault, $node));
         };
@@ -402,7 +401,7 @@ class DefinitionsReader
         $part->setDocumentation($this->getDocumentation($node));
         $message->addPart($part);
 
-        return function () use($part, $node)
+        return function () use ($part, $node)
         {
             if ($node->hasAttribute("element")) {
                 list ($name, $ns) = self::splitParts($node, $node->getAttribute("element"));
@@ -419,7 +418,7 @@ class DefinitionsReader
         };
     }
 
-    private static function splitParts(DOMElement $node, $typeName)
+    public static function splitParts(DOMElement $node, $typeName)
     {
         $namespace = null;
         $prefix = null;
@@ -461,7 +460,7 @@ class DefinitionsReader
             $definitions->addImport($newDefinitions);
         }
 
-        return function () use($callbacks)
+        return function () use ($callbacks)
         {
             foreach ($callbacks as $callback) {
                 call_user_func($callback);
@@ -507,7 +506,7 @@ class DefinitionsReader
 
     /**
      *
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Definitions
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Definitions
      */
     public function readFile($file)
     {

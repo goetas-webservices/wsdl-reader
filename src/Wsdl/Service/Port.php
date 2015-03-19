@@ -1,9 +1,9 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Wsdl\Service;
+namespace GoetasWebservices\XML\WSDLReader\Wsdl\Service;
 
-use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
-use PhpWebservices\XML\WSDLReader\Wsdl\Service;
-use PhpWebservices\XML\WSDLReader\Wsdl\Binding;
+use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Service;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
 /**
  * XSD Type: tPort
  */
@@ -16,7 +16,7 @@ class Port extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Binding
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
      */
     protected $binding;
 
@@ -39,7 +39,7 @@ class Port extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Port
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Port
      */
     public function setName($name)
     {
@@ -49,15 +49,15 @@ class Port extends ExtensibleDocumented
 
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Binding
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
      */
     public function getBinding()
     {
         return $this->binding;
     }
     /**
-     * @param $binding \PhpWebservices\XML\WSDLReader\Wsdl\Binding
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Port
+     * @param $binding \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Port
      */
     public function setBinding(Binding $binding)
     {

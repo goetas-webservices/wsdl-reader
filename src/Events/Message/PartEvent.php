@@ -1,14 +1,14 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Events\Message;
+namespace GoetasWebservices\XML\WSDLReader\Events\Message;
 
 use Symfony\Component\EventDispatcher\Event;
-use PhpWebservices\XML\WSDLReader\Wsdl\Message\Part;
-use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part;
+use GoetasWebservices\XML\WSDLReader\Events\WsdlEvent;
 
 class PartEvent extends WsdlEvent
 {
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     protected $MessagePart;
 
@@ -19,7 +19,7 @@ class PartEvent extends WsdlEvent
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Message\Part
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     public function getPart()
     {

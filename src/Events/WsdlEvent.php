@@ -1,5 +1,5 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Events;
+namespace GoetasWebservices\XML\WSDLReader\Events;
 
 use Symfony\Component\EventDispatcher\Event;
 

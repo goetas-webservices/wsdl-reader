@@ -1,7 +1,8 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Wsdl\PortType;
+namespace GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
 
-use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
+use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Message;
 /**
  * XSD Type: tFault
  */
@@ -14,13 +15,13 @@ class Fault extends ExtensibleAttributesDocumented
     protected $name;
 
     /**
-     * @var string
+     * @var Message
      */
     protected $message;
 
     /**
      *
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
     protected $operation;
 
@@ -42,7 +43,7 @@ class Fault extends ExtensibleAttributesDocumented
     }
     /**
      * @param $name string
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      */
     public function setName($name)
     {
@@ -52,17 +53,17 @@ class Fault extends ExtensibleAttributesDocumented
 
 
     /**
-     * @return string
+     * @return Message
      */
     public function getMessage()
     {
         return $this->message;
     }
     /**
-     * @param $message string
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
+     * @param $message Message
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      */
-    public function setMessage($message)
+    public function setMessage(Message $message)
     {
         $this->message = $message;
         return $this;

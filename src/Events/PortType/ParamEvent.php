@@ -1,10 +1,10 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Events\PortType;
+namespace GoetasWebservices\XML\WSDLReader\Events\PortType;
 
 use Symfony\Component\EventDispatcher\Event;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param;
-use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param;
+use GoetasWebservices\XML\WSDLReader\Events\WsdlEvent;
 
 class ParamEvent extends WsdlEvent
 {
@@ -18,7 +18,7 @@ class ParamEvent extends WsdlEvent
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      */
     public function getParam()
     {

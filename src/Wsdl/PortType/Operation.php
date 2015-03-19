@@ -1,8 +1,8 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Wsdl\PortType;
+namespace GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
 
-use PhpWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
-use PhpWebservices\XML\WSDLReader\Wsdl\PortType;
+use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
 /**
  * XSD Type: tOperation
  */
@@ -20,22 +20,22 @@ class Operation extends ExtensibleDocumented
     protected $parameterOrder;
 
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      */
     protected $input;
 
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      */
     protected $output;
 
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault[]
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault[]
      */
     protected $fault = array();
 
     /**
-     * @var \PhpWebservices\XML\WSDLReader\Wsdl\PortType
+     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
      */
     protected $port;
 
@@ -56,7 +56,7 @@ class Operation extends ExtensibleDocumented
     }
     /**
      * @param $name string
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
     public function setName($name)
     {
@@ -74,7 +74,7 @@ class Operation extends ExtensibleDocumented
     }
     /**
      * @param $parameterOrder string
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
     public function setParameterOrder($parameterOrder)
     {
@@ -84,17 +84,17 @@ class Operation extends ExtensibleDocumented
 
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      */
     public function getInput()
     {
         return $this->input;
     }
     /**
-     * @param $input \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @param $input \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
-    public function setInput(\PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param $input)
+    public function setInput(\GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param $input)
     {
         $this->input = $input;
         return $this;
@@ -102,24 +102,24 @@ class Operation extends ExtensibleDocumented
 
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      */
     public function getOutput()
     {
         return $this->output;
     }
     /**
-     * @param $output \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @param $output \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
-    public function setOutput(\PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param $output)
+    public function setOutput(\GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param $output)
     {
         $this->output = $output;
         return $this;
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      */
     public function getFault($name)
     {
@@ -127,17 +127,17 @@ class Operation extends ExtensibleDocumented
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault[]
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault[]
      */
     public function getFaults()
     {
         return $this->fault;
     }
     /**
-     * @param $fault \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @param $fault \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
-    public function addFault(\PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault $fault)
+    public function addFault(\GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault $fault)
     {
         $this->fault[$fault->getName()] = $fault;
         return $this;

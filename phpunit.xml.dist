@@ -4,7 +4,7 @@
          convertNoticesToExceptions="false">
          
     <testsuites>
-        <testsuite name="PhpWebservices WSDL Reader Test Suite">
+        <testsuite name="GoetasWebservices WSDL Reader Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

@@ -1,8 +1,8 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Events\Service;
+namespace GoetasWebservices\XML\WSDLReader\Events\Service;
 
-use PhpWebservices\XML\WSDLReader\Events\WsdlEvent;
-use PhpWebservices\XML\WSDLReader\Wsdl\Service\Port;
+use GoetasWebservices\XML\WSDLReader\Events\WsdlEvent;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port;
 
 class PortEvent extends WsdlEvent
 {
@@ -16,7 +16,7 @@ class PortEvent extends WsdlEvent
     }
 
     /**
-     * @return \PhpWebservices\XML\WSDLReader\Wsdl\Service\Port
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port
      */
     public function getPort()
     {

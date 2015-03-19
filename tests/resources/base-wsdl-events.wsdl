@@ -48,8 +48,6 @@
         </wsdl:operation>
     </wsdl:binding>
     
-    
-        
     <wsdl:portType name="StockQuoteSoap">
         <wsdl:operation name="GetQuote">
             <wsdl:input message="tns:GetQuoteSoapIn" />
@@ -61,7 +59,5 @@
             <wsdl:fault name="foo" message="tns:GetQuoteSoapIn"></wsdl:fault>
         </wsdl:operation>
     </wsdl:portType>
-    
-    
     
 </wsdl:definitions>

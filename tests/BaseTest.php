@@ -1,15 +1,15 @@
 <?php
-namespace PhpWebservices\XML\WSDLReader\Tests;
+namespace GoetasWebservices\XML\WSDLReader\Tests;
 
-use PhpWebservices\XML\WSDLReader\DefinitionsReader;
-use PhpWebservices\XML\WSDLReader\Wsdl\Definitions;
+use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
 
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
      *
-     * @var \PhpWebservices\XML\WSDLReader\DefinitionsReader
+     * @var \GoetasWebservices\XML\WSDLReader\DefinitionsReader
      */
     protected $reader;
 
@@ -22,14 +22,14 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $definitions = $this->reader->readFile(__DIR__.'/resources/base-wsdl.wsdl');
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->makeAssertionsLoad($definitions);
     }
 
     public function testReadString()
     {
         $definitions = $this->reader->readString(file_get_contents(__DIR__.'/resources/base-wsdl.wsdl'));
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->makeAssertionsLoad($definitions);
     }
 
@@ -39,7 +39,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $dom->load(__DIR__.'/resources/base-wsdl.wsdl');
         $definitions = $this->reader->readNode($dom->documentElement);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->makeAssertionsLoad($definitions);
     }
 
@@ -47,7 +47,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $definitions = $this->reader->readFile(__DIR__.'/resources/base-wsdl-import.wsdl');
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->assertEquals("bar", $definitions->getName());
         // import test
         $imports = $definitions->getImports();
@@ -85,29 +85,29 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $messages = $definitions->getMessages();
         $this->assertArrayHasKey('GetQuoteSoapIn', $messages);
         $this->assertArrayHasKey('GetQuoteSoapOut', $messages);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Message', $messages['GetQuoteSoapIn']);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Message', $messages['GetQuoteSoapOut']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Message', $messages['GetQuoteSoapIn']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Message', $messages['GetQuoteSoapOut']);
         $this->assertSame($definitions->getMessage('GetQuoteSoapIn'), $messages['GetQuoteSoapIn']);
         $this->assertSame($definitions->getMessage('GetQuoteSoapOut'), $messages['GetQuoteSoapOut']);
 
         // messsage parts
         $messageParts = $definitions->getMessage('GetQuoteSoapIn')->getParts();
         $this->assertArrayHasKey('parameters', $messageParts);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Message\Part', $messageParts['parameters']);
-        $this->assertInstanceOf('PhpWebservices\XML\XSDReader\Schema\Element\ElementDef', $messageParts['parameters']->getElement());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part', $messageParts['parameters']);
+        $this->assertInstanceOf('GoetasWebservices\XML\XSDReader\Schema\Element\ElementDef', $messageParts['parameters']->getElement());
         $this->assertNull($messageParts['parameters']->getType());
 
 
         $messageParts = $definitions->getMessage('GetQuoteSoapOut')->getParts();
         $this->assertArrayHasKey('parameters', $messageParts);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Message\Part', $messageParts['parameters']);
-        $this->assertInstanceOf('PhpWebservices\XML\XSDReader\Schema\Type\ComplexType', $messageParts['parameters']->getType());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part', $messageParts['parameters']);
+        $this->assertInstanceOf('GoetasWebservices\XML\XSDReader\Schema\Type\ComplexType', $messageParts['parameters']->getType());
         $this->assertNull($messageParts['parameters']->getElement());
 
         //port types
         $portTypes = $definitions->getPortTypes();
         $this->assertArrayHasKey('StockQuoteSoap', $portTypes);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType', $portTypes['StockQuoteSoap']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType', $portTypes['StockQuoteSoap']);
         $this->assertSame($definitions->getPortType('StockQuoteSoap'), $portTypes['StockQuoteSoap']);
 
         // port type opertations
@@ -116,20 +116,20 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('GetQuote', $operations);
         $this->assertArrayHasKey('GetQuoteWithFault', $operations);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation', $operations['GetQuote']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation', $operations['GetQuote']);
         $this->assertSame($portType->getOperation('GetQuote'), $operations['GetQuote']);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuote']->getInput());
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuote']->getOutput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuote']->getInput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuote']->getOutput());
         $this->assertEmpty($operations['GetQuote']->getFaults());
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Operation', $operations['GetQuoteWithFault']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation', $operations['GetQuoteWithFault']);
         $this->assertSame($portType->getOperation('GetQuoteWithFault'), $operations['GetQuoteWithFault']);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuoteWithFault']->getInput());
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuoteWithFault']->getOutput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuoteWithFault']->getInput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param', $operations['GetQuoteWithFault']->getOutput());
         $this->assertCount(1, $operations['GetQuoteWithFault']->getFaults());
-        $this->assertContainsOnlyInstancesOf('PhpWebservices\XML\WSDLReader\Wsdl\PortType\Fault', $operations['GetQuoteWithFault']->getFaults());
+        $this->assertContainsOnlyInstancesOf('GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault', $operations['GetQuoteWithFault']->getFaults());
 
         $this->assertArrayHasKey('foo', $operations['GetQuoteWithFault']->getFaults());
 
@@ -137,7 +137,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         //bindings
         $bindings = $definitions->getBindings();
         $this->assertArrayHasKey('StockQuoteSoap', $bindings);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding', $bindings['StockQuoteSoap']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding', $bindings['StockQuoteSoap']);
         $this->assertSame($definitions->getBinding('StockQuoteSoap'), $bindings['StockQuoteSoap']);
 
         //binding operation
@@ -148,21 +148,21 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('GetQuote', $operations);
         $this->assertArrayHasKey('GetQuoteWithFault', $operations);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation', $operations['GetQuote']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation', $operations['GetQuote']);
         $this->assertSame($binding->getOperation('GetQuote'), $operations['GetQuote']);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuote']->getInput());
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuote']->getOutput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuote']->getInput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuote']->getOutput());
         $this->assertEmpty($operations['GetQuote']->getFaults());
 
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\Operation', $operations['GetQuoteWithFault']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation', $operations['GetQuoteWithFault']);
         $this->assertSame($binding->getOperation('GetQuoteWithFault'), $operations['GetQuoteWithFault']);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuoteWithFault']->getInput());
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuoteWithFault']->getOutput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuoteWithFault']->getInput());
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage', $operations['GetQuoteWithFault']->getOutput());
         $this->assertCount(2, $operations['GetQuoteWithFault']->getFaults());
-        $this->assertContainsOnlyInstancesOf('PhpWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault', $operations['GetQuoteWithFault']->getFaults());
+        $this->assertContainsOnlyInstancesOf('GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault', $operations['GetQuoteWithFault']->getFaults());
 
         $this->assertArrayHasKey('foo', $operations['GetQuoteWithFault']->getFaults());
         $this->assertArrayHasKey('bar', $operations['GetQuoteWithFault']->getFaults());
@@ -172,7 +172,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey('StockQuote', $services);
 
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Service', $services['StockQuote']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Service', $services['StockQuote']);
         $this->assertSame($definitions->getService('StockQuote'), $services['StockQuote']);
         $service = $definitions->getService('StockQuote');
 
@@ -180,7 +180,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         $ports = $service->getPorts();
         $this->assertArrayHasKey('StockQuoteSoap', $ports);
-        $this->assertInstanceOf('PhpWebservices\XML\WSDLReader\Wsdl\Service\Port', $ports['StockQuoteSoap']);
+        $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port', $ports['StockQuoteSoap']);
         $this->assertSame($service->getPort('StockQuoteSoap'), $ports['StockQuoteSoap']);
         // port bindig
         $this->assertSame($service->getPort('StockQuoteSoap')->getBinding(), $bindings['StockQuoteSoap']);

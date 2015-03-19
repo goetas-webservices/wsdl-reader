@@ -17,7 +17,7 @@ There are two recommended ways to install the `wsdl-reader` via [Composer](https
 * using the ``composer require`` command:
 
 ```bash
-composer require 'php-webservices/wsdl-reader'
+composer require 'goetas-webservices/wsdl-reader'
 ```
 
 * adding the dependency to your ``composer.json`` file:
@@ -25,7 +25,7 @@ composer require 'php-webservices/wsdl-reader'
 ```js
 "require": {
     ..
-    "php-webservices/wsdl-reader" : "~0.1",
+    "goetas-webservices/wsdl-reader" : "~0.1",
     ..
 }
 ```
@@ -33,12 +33,12 @@ Getting started
 ---------------
 
 ```php
-use PhpWebservices\XML\WSDLReader\DefinitionsReader;
+use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 
 $reader = new DefinitionsReader();
 $definitions = $reader->readFile("http://www.example.com/exaple.wsdl");
 
-// $definitions is instance of PhpWebservices\XML\WSDLReader\Wsdl\Definitions;
+// $definitions is instance of GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
 // Now you can navigate the entire WSDL structure
 
 foreach ($definitions->getServices() as $service){
