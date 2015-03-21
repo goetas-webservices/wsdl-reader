@@ -37,13 +37,24 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
         $expected = [];
         $expected[] = ['definitions_start',         'GoetasWebservices\XML\WSDLReader\Events\DefinitionsEvent'];
+
+        $expected[] = ['service',                   'GoetasWebservices\XML\WSDLReader\Events\ServiceEvent'];
+        $expected[] = ['service.port',              'GoetasWebservices\XML\WSDLReader\Events\Service\PortEvent'];
+
         $expected[] = ['message',                   'GoetasWebservices\XML\WSDLReader\Events\MessageEvent'];
         $expected[] = ['message.part',              'GoetasWebservices\XML\WSDLReader\Events\Message\PartEvent'];
         $expected[] = ['message',                   'GoetasWebservices\XML\WSDLReader\Events\MessageEvent'];
         $expected[] = ['message.part',              'GoetasWebservices\XML\WSDLReader\Events\Message\PartEvent'];
 
-        $expected[] = ['service',                   'GoetasWebservices\XML\WSDLReader\Events\ServiceEvent'];
-        $expected[] = ['service.port',              'GoetasWebservices\XML\WSDLReader\Events\Service\PortEvent'];
+        $expected[] = ['portType',                  'GoetasWebservices\XML\WSDLReader\Events\PortTypeEvent'];
+        $expected[] = ['portType.operation',        'GoetasWebservices\XML\WSDLReader\Events\PortType\OperationEvent'];
+        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
+        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
+
+        $expected[] = ['portType.operation',        'GoetasWebservices\XML\WSDLReader\Events\PortType\OperationEvent'];
+        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
+        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
+        $expected[] = ['portType.operation.fault',  'GoetasWebservices\XML\WSDLReader\Events\PortType\FaultEvent'];
 
         $expected[] = ['binding',                   'GoetasWebservices\XML\WSDLReader\Events\BindingEvent'];
 
@@ -58,16 +69,6 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         $expected[] = ['binding.operation.fault',   'GoetasWebservices\XML\WSDLReader\Events\Binding\FaultEvent'];
         $expected[] = ['binding.operation.fault',   'GoetasWebservices\XML\WSDLReader\Events\Binding\FaultEvent'];
 
-        $expected[] = ['portType',                  'GoetasWebservices\XML\WSDLReader\Events\PortTypeEvent'];
-        $expected[] = ['portType.operation',        'GoetasWebservices\XML\WSDLReader\Events\PortType\OperationEvent'];
-        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
-        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
-
-        $expected[] = ['portType.operation',        'GoetasWebservices\XML\WSDLReader\Events\PortType\OperationEvent'];
-        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
-        $expected[] = ['portType.operation.param',  'GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent'];
-        $expected[] = ['portType.operation.fault',  'GoetasWebservices\XML\WSDLReader\Events\PortType\FaultEvent'];
-
         $expected[] = ['definitions_end', 'GoetasWebservices\XML\WSDLReader\Events\DefinitionsEvent'];
 
         $this->assertCount(count($expected), $events);
@@ -77,7 +78,7 @@ class EventsTest extends \PHPUnit_Framework_TestCase
 
             $this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);
             $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Events\WsdlEvent', $event);
-            $this->assertInstanceOf($expectedData[1], $event);
+            $this->assertInstanceOf($expectedData[1], $event, "Event name '$expectedData[0]'");
             $this->assertEquals($expectedData[0], $event->getName());
         }
     }
