@@ -19,7 +19,8 @@
         "sami/sami" : "~2.0",
         "jmikola/wildcard-event-dispatcher": "~1.0"
     },
-    
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": { "GoetasWebservices\\XML\\WSDLReader\\": "src/" }
     },
