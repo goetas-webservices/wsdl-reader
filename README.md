@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/goetas/wsdl-reader.svg?branch=master)](https://travis-ci.org/goetas/wsdl-reader)
-[![Code Coverage](https://scrutinizer-ci.com/g/goetas/wsdl-reader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/goetas/wsdl-reader/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/goetas/wsdl-reader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/goetas/wsdl-reader/?branch=master)
+[![Build Status](https://travis-ci.org/goetas-webservices/wsdl-reader.svg?branch=master)](https://travis-ci.org/goetas-webservices/wsdl-reader)
+[![Code Coverage](https://scrutinizer-ci.com/g/goetas-webservices/wsdl-reader/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/goetas-webservices/wsdl-reader/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/goetas-webservices/wsdl-reader/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/goetas-webservices/wsdl-reader/?branch=master)
 
 
 PHP XSD Reader
 ==============
 
-Read any [WSDL 1.1](http://en.wikipedia.org/wiki/Web_Services_Description_Language) (XSD) programmatically with PHP.
+Read any [WSDL 1.1](http://en.wikipedia.org/wiki/Web_Services_Description_Language) (XSD) programatically with PHP.
 
 
 Installation
