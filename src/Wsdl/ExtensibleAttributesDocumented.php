@@ -7,5 +7,5 @@ namespace GoetasWebservices\XML\WSDLReader\Wsdl;
 abstract class ExtensibleAttributesDocumented extends Documented
 {
 
-    
+
 }

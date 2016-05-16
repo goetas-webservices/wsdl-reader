@@ -3,38 +3,38 @@ namespace GoetasWebservices\XML\WSDLReader;
 
 use DOMDocument;
 use DOMElement;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Message;
-use GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
-use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
-use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param;
-use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Service;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port;
-use GoetasWebservices\XML\XSDReader\Utils\UrlUtils;
-use GoetasWebservices\XML\XSDReader\Schema\Schema;
-use GoetasWebservices\XML\XSDReader\SchemaReader;
+use GoetasWebservices\XML\WSDLReader\Events\Binding\FaultEvent as BindingOperationFaultEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Binding\MessageEvent as BindingOperationMessageEvent;
+use GoetasWebservices\XML\WSDLReader\Events\Binding\OperationEvent as BindingOperationEvent;
+use GoetasWebservices\XML\WSDLReader\Events\BindingEvent;
 use GoetasWebservices\XML\WSDLReader\Events\DefinitionsEvent;
-use Symfony\Component\EventDispatcher\Event;
-use GoetasWebservices\XML\WSDLReader\Events\MessageEvent;
 use GoetasWebservices\XML\WSDLReader\Events\Message\PartEvent as MessagePartEvent;
-use GoetasWebservices\XML\WSDLReader\Events\PortTypeEvent;
+use GoetasWebservices\XML\WSDLReader\Events\MessageEvent;
+use GoetasWebservices\XML\WSDLReader\Events\PortType\FaultEvent;
 use GoetasWebservices\XML\WSDLReader\Events\PortType\OperationEvent;
 use GoetasWebservices\XML\WSDLReader\Events\PortType\ParamEvent;
-use GoetasWebservices\XML\WSDLReader\Events\PortType\FaultEvent;
-use GoetasWebservices\XML\WSDLReader\Events\BindingEvent;
-use GoetasWebservices\XML\WSDLReader\Events\Binding\OperationEvent as BindingOperationEvent;
-use GoetasWebservices\XML\WSDLReader\Events\Binding\MessageEvent as BindingOperationMessageEvent;
-use GoetasWebservices\XML\WSDLReader\Events\Binding\FaultEvent as BindingOperationFaultEvent;
-use GoetasWebservices\XML\WSDLReader\Events\ServiceEvent;
+use GoetasWebservices\XML\WSDLReader\Events\PortTypeEvent;
 use GoetasWebservices\XML\WSDLReader\Events\Service\PortEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use GoetasWebservices\XML\WSDLReader\Events\ServiceEvent;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation as BindingOperation;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault as BindingOperationFault;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage as BindingOperationMessage;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Message;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Service;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port;
+use GoetasWebservices\XML\XSDReader\Schema\Schema;
+use GoetasWebservices\XML\XSDReader\SchemaReader;
+use GoetasWebservices\XML\XSDReader\Utils\UrlUtils;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class DefinitionsReader
 {
@@ -59,8 +59,8 @@ class DefinitionsReader
 
     public function __construct(SchemaReader $reader = null, EventDispatcherInterface $dispatcher = null)
     {
-        $this->reader = $reader ?  : new SchemaReader();
-        $this->dispatcher = $dispatcher ?  : new EventDispatcher();
+        $this->reader = $reader ?: new SchemaReader();
+        $this->dispatcher = $dispatcher ?: new EventDispatcher();
     }
 
     /**
@@ -83,7 +83,7 @@ class DefinitionsReader
     {
         $childs = array();
         foreach ($node->childNodes as $childNode) {
-            if (! ($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
+            if (!($childNode instanceof DOMElement) || $childNode->namespaceURI !== self::WSDL_NS) {
                 continue;
             }
             $childs[] = $childNode;
@@ -137,10 +137,9 @@ class DefinitionsReader
                     break;
             }
         }
-		ksort($functions);
+        ksort($functions);
         return array(
-            function () use ($functions, $definitions, $node)
-            {
+            function () use ($functions, $definitions, $node) {
                 $this->dispatcher->dispatch('definitions_start', new DefinitionsEvent($definitions, $node));
                 foreach ($functions as $subFunctions) {
                     foreach ($subFunctions as $function) {
@@ -177,8 +176,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use ($functions, $binding, $definitions, $node)
-        {
+        return function () use ($functions, $binding, $definitions, $node) {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("type"));
             $binding->setType($definitions->findPortType($name, $ns));
 
@@ -209,8 +207,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use ($functions, $bindingOperation, $node)
-        {
+        return function () use ($functions, $bindingOperation, $node) {
             $this->dispatcher->dispatch('binding.operation', new BindingOperationEvent($bindingOperation, $node));
             foreach ($functions as $function) {
                 call_user_func($function);
@@ -228,9 +225,8 @@ class DefinitionsReader
             $bindingOperation->setOutput($message);
         }
 
-        return function () use ($message, $node)
-        {
-            $this->dispatcher->dispatch('binding.operation.message', new BindingOperationMessageEvent($message, $node));
+        return function () use ($message, $node, $isInput) {
+            $this->dispatcher->dispatch('binding.operation.message', new BindingOperationMessageEvent($message, $node, $isInput ? 'input' : 'output'));
         };
     }
 
@@ -240,8 +236,7 @@ class DefinitionsReader
         $fault->setDocumentation($this->getDocumentation($node));
         $bindingOperation->addFault($fault);
 
-        return function () use ($fault, $node)
-        {
+        return function () use ($fault, $node) {
             $this->dispatcher->dispatch('binding.operation.fault', new BindingOperationFaultEvent($fault, $node));
         };
     }
@@ -260,8 +255,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use ($functions, $service, $node)
-        {
+        return function () use ($functions, $service, $node) {
             $this->dispatcher->dispatch('service', new ServiceEvent($service, $node));
             foreach ($functions as $function) {
                 call_user_func($function);
@@ -284,8 +278,7 @@ class DefinitionsReader
             }
         }
 
-        return function () use ($functions, $message, $node)
-        {
+        return function () use ($functions, $message, $node) {
             $this->dispatcher->dispatch('message', new MessageEvent($message, $node));
             foreach ($functions as $function) {
                 call_user_func($function);
@@ -298,8 +291,7 @@ class DefinitionsReader
         $port = new Port($service, $node->getAttribute("name"));
         $port->setDocumentation($this->getDocumentation($node));
         $service->addPort($port);
-        return function () use ($port, $service, $node)
-        {
+        return function () use ($port, $service, $node) {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("binding"));
             $port->setBinding($service->getDefinition()
                 ->findBinding($name, $ns));
@@ -321,8 +313,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use ($functions, $port, $node)
-        {
+        return function () use ($functions, $port, $node) {
             $this->dispatcher->dispatch('portType', new PortTypeEvent($port, $node));
             foreach ($functions as $function) {
                 call_user_func($function);
@@ -334,7 +325,7 @@ class DefinitionsReader
     {
         $operation = new Operation($port, $node->getAttribute("name"));
         $operation->setDocumentation($this->getDocumentation($node));
-        $operation->setParameterOrder($node->getAttribute("parameterOrder") ?  : null);
+        $operation->setParameterOrder($node->getAttribute("parameterOrder") ?: null);
         $port->addOperation($operation);
 
         $functions = array();
@@ -351,8 +342,7 @@ class DefinitionsReader
                     break;
             }
         }
-        return function () use ($functions, $operation, $node)
-        {
+        return function () use ($functions, $operation, $node) {
             $this->dispatcher->dispatch('portType.operation', new OperationEvent($operation, $node));
             foreach ($functions as $function) {
                 call_user_func($function);
@@ -371,8 +361,7 @@ class DefinitionsReader
             $operation->setOutput($param);
         }
 
-        return function () use ($param, $operation, $node)
-        {
+        return function () use ($param, $operation, $node) {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("message"));
             $param->setMessage($operation->getDefinition()
                 ->findMessage($name, $ns));
@@ -386,8 +375,7 @@ class DefinitionsReader
         $fault->setDocumentation($this->getDocumentation($node));
         $operation->addFault($fault);
 
-        return function () use ($fault, $operation, $node)
-        {
+        return function () use ($fault, $operation, $node) {
             list ($name, $ns) = self::splitParts($node, $node->getAttribute("message"));
             $fault->setMessage($operation->getDefinition()->findMessage($name, $ns));
 
@@ -401,8 +389,7 @@ class DefinitionsReader
         $part->setDocumentation($this->getDocumentation($node));
         $message->addPart($part);
 
-        return function () use ($part, $node)
-        {
+        return function () use ($part, $node) {
             if ($node->hasAttribute("element")) {
                 list ($name, $ns) = self::splitParts($node, $node->getAttribute("element"));
                 $part->setElement($part->getDefinition()
@@ -439,11 +426,11 @@ class DefinitionsReader
         $file = UrlUtils::resolveRelativeUrl($node->ownerDocument->documentURI, $node->getAttribute("location"));
         if (isset($this->loadedFiles[$file])) {
             $definitions->addImport($this->loadedFiles[$file]);
-            return function ()
-            {};
+            return function () {
+            };
         }
 
-        if (! $node->getAttribute("namespace")) {
+        if (!$node->getAttribute("namespace")) {
             $this->loadedFiles[$file] = $newDefinitions = $definitions;
         } else {
             $this->loadedFiles[$file] = $newDefinitions = new Definitions();
@@ -460,8 +447,7 @@ class DefinitionsReader
             $definitions->addImport($newDefinitions);
         }
 
-        return function () use ($callbacks)
-        {
+        return function () use ($callbacks) {
             foreach ($callbacks as $callback) {
                 call_user_func($callback);
             }
@@ -496,7 +482,7 @@ class DefinitionsReader
     public function readString($content, $file = 'wsdl.xsd')
     {
         $xml = new DOMDocument('1.0', 'UTF-8');
-        if (! $xml->loadXML($content)) {
+        if (!$xml->loadXML($content)) {
             throw new IOException("Can't load the wsdl");
         }
         $xml->documentURI = $file;
@@ -523,7 +509,7 @@ class DefinitionsReader
     private function getDOM($file)
     {
         $xml = new DOMDocument('1.0', 'UTF-8');
-        if (! $xml->load($file)) {
+        if (!$xml->load($file)) {
             throw new IOException("Can't load the file $file");
         }
         return $xml;

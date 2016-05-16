@@ -1,10 +1,11 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl\Message;
 
-use GoetasWebservices\XML\XSDReader\Schema\Type\Type;
-use GoetasWebservices\XML\XSDReader\Schema\Element\ElementItem;
 use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Message;
+use GoetasWebservices\XML\XSDReader\Schema\Element\ElementItem;
+use GoetasWebservices\XML\XSDReader\Schema\Type\Type;
+
 /**
  * XSD Type: tPart
  */
@@ -39,12 +40,21 @@ class Part extends ExtensibleAttributesDocumented
     }
 
     /**
+     * @return Message
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
      * @return string
      */
     public function getName()
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part
@@ -63,6 +73,7 @@ class Part extends ExtensibleAttributesDocumented
     {
         return $this->element;
     }
+
     /**
      * @param $element string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part
@@ -81,6 +92,7 @@ class Part extends ExtensibleAttributesDocumented
     {
         return $this->type;
     }
+
     /**
      * @param $type string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part

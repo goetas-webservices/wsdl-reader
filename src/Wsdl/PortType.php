@@ -22,6 +22,7 @@ class PortType extends ExtensibleAttributesDocumented
         parent::__construct($def);
         $this->name = $name;
     }
+
     /**
      * @return string
      */
@@ -29,6 +30,7 @@ class PortType extends ExtensibleAttributesDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
@@ -40,7 +42,6 @@ class PortType extends ExtensibleAttributesDocumented
     }
 
 
-
     /**
      * @param $operation \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
@@ -49,6 +50,7 @@ class PortType extends ExtensibleAttributesDocumented
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
      */
@@ -56,6 +58,7 @@ class PortType extends ExtensibleAttributesDocumented
     {
         return $this->operation[$name];
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation[]
      */

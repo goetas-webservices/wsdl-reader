@@ -3,6 +3,7 @@ namespace GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
 
 use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
 use GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
+
 /**
  * XSD Type: tOperation
  */
@@ -54,6 +55,7 @@ class Operation extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
@@ -72,6 +74,7 @@ class Operation extends ExtensibleDocumented
     {
         return $this->parameterOrder;
     }
+
     /**
      * @param $parameterOrder string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
@@ -90,6 +93,7 @@ class Operation extends ExtensibleDocumented
     {
         return $this->input;
     }
+
     /**
      * @param $input \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
@@ -108,6 +112,7 @@ class Operation extends ExtensibleDocumented
     {
         return $this->output;
     }
+
     /**
      * @param $output \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
@@ -133,6 +138,7 @@ class Operation extends ExtensibleDocumented
     {
         return $this->fault;
     }
+
     /**
      * @param $fault \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation

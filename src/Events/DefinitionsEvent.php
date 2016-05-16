@@ -1,8 +1,8 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Events;
 
-use Symfony\Component\EventDispatcher\Event;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
+use Symfony\Component\EventDispatcher\Event;
 
 class DefinitionsEvent extends WsdlEvent
 {

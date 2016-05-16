@@ -31,6 +31,7 @@ class Message extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message
@@ -54,6 +55,7 @@ class Message extends ExtensibleDocumented
 
         return $this;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part[]
      */
@@ -61,12 +63,13 @@ class Message extends ExtensibleDocumented
     {
         return $this->part;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message\Part
      */
     public function getPart($name)
     {
-    	return $this->part[$name];
+        return $this->part[$name];
     }
 
 }

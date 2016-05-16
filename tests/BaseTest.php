@@ -20,7 +20,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     public function testReadFile()
     {
-        $definitions = $this->reader->readFile(__DIR__.'/resources/base-wsdl.wsdl');
+        $definitions = $this->reader->readFile(__DIR__ . '/resources/base-wsdl.wsdl');
 
         $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->makeAssertionsLoad($definitions);
@@ -28,7 +28,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     public function testReadString()
     {
-        $definitions = $this->reader->readString(file_get_contents(__DIR__.'/resources/base-wsdl.wsdl'));
+        $definitions = $this->reader->readString(file_get_contents(__DIR__ . '/resources/base-wsdl.wsdl'));
         $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->makeAssertionsLoad($definitions);
     }
@@ -36,7 +36,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
     public function testReadNode()
     {
         $dom = new \DOMDocument();
-        $dom->load(__DIR__.'/resources/base-wsdl.wsdl');
+        $dom->load(__DIR__ . '/resources/base-wsdl.wsdl');
         $definitions = $this->reader->readNode($dom->documentElement);
 
         $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
@@ -45,7 +45,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
     public function testImport()
     {
-        $definitions = $this->reader->readFile(__DIR__.'/resources/base-wsdl-import.wsdl');
+        $definitions = $this->reader->readFile(__DIR__ . '/resources/base-wsdl-import.wsdl');
 
         $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->assertEquals("bar", $definitions->getName());
@@ -65,7 +65,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testTypeNotFound()
     {
-        $definitions = $this->reader->readFile(__DIR__.'/resources/base-wsdl-import.wsdl');
+        $definitions = $this->reader->readFile(__DIR__ . '/resources/base-wsdl-import.wsdl');
         $this->assertNotNull($definitions->findBinding('StockQuoteSoap2', 'http://www.example.com'));
     }
 

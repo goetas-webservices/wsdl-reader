@@ -1,9 +1,10 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl\Service;
 
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
 use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Service;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
+
 /**
  * XSD Type: tPort
  */
@@ -37,6 +38,7 @@ class Port extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Port
@@ -55,6 +57,7 @@ class Port extends ExtensibleDocumented
     {
         return $this->binding;
     }
+
     /**
      * @param $binding \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Port

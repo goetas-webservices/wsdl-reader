@@ -11,8 +11,8 @@ abstract class ExtensibilityElement
      * @var boolean
      */
     protected $required;
-    
-    
+
+
     /**
      * @return boolean
      */
@@ -20,6 +20,7 @@ abstract class ExtensibilityElement
     {
         return $this->required;
     }
+
     /**
      * @param $required boolean
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibilityElement
@@ -29,5 +30,5 @@ abstract class ExtensibilityElement
         $this->required = $required;
         return $this;
     }
-    
+
 }

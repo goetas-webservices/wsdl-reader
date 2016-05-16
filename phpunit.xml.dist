@@ -2,13 +2,13 @@
 <phpunit bootstrap="./vendor/autoload.php"
          colors="true"
          convertNoticesToExceptions="false">
-         
+
     <testsuites>
         <testsuite name="GoetasWebservices WSDL Reader Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
-    
+
     <filter>
         <whitelist>
             <directory>src</directory>

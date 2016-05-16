@@ -2,6 +2,7 @@
 namespace GoetasWebservices\XML\WSDLReader\Wsdl\Binding;
 
 use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleDocumented;
+
 /**
  * XSD Type: tBindingOperationFault
  */
@@ -33,6 +34,7 @@ class OperationFault extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationFault

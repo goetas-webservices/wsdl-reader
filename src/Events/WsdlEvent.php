@@ -15,6 +15,7 @@ abstract class WsdlEvent extends Event
     {
         $this->node = $node;
     }
+
     /**
      * @return \DOMElement
      */

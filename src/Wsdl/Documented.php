@@ -22,6 +22,7 @@ class Documented
     {
         return $this->documentation;
     }
+
     /**
      * @param $documentation string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Documented

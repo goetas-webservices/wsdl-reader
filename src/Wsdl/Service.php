@@ -18,7 +18,6 @@ class Service extends ExtensibleDocumented
     protected $port = array();
 
 
-
     public function __construct(Definitions $def, $name)
     {
         parent::__construct($def);
@@ -32,6 +31,7 @@ class Service extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Service
@@ -43,7 +43,6 @@ class Service extends ExtensibleDocumented
     }
 
 
-
     /**
      * @param $port \GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port
      */
@@ -52,6 +51,7 @@ class Service extends ExtensibleDocumented
         $this->port[$port->getName()] = $port;
         return $this;
     }
+
     public function getPort($name)
     {
         return $this->port[$name];

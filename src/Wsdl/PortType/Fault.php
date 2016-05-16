@@ -3,6 +3,7 @@ namespace GoetasWebservices\XML\WSDLReader\Wsdl\PortType;
 
 use GoetasWebservices\XML\WSDLReader\Wsdl\ExtensibleAttributesDocumented;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Message;
+
 /**
  * XSD Type: tFault
  */
@@ -41,6 +42,7 @@ class Fault extends ExtensibleAttributesDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault
@@ -59,6 +61,7 @@ class Fault extends ExtensibleAttributesDocumented
     {
         return $this->message;
     }
+
     /**
      * @param $message Message
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Fault

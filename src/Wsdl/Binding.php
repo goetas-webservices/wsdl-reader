@@ -36,6 +36,7 @@ class Binding extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
@@ -54,6 +55,7 @@ class Binding extends ExtensibleDocumented
     {
         return $this->type;
     }
+
     /**
      * @param $type string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
@@ -65,7 +67,6 @@ class Binding extends ExtensibleDocumented
     }
 
 
-
     /**
      * @param $operation \GoetasWebservices\XML\WSDLReader\Wsdl\BindingOperation
      */
@@ -74,6 +75,7 @@ class Binding extends ExtensibleDocumented
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation
      */
@@ -81,6 +83,7 @@ class Binding extends ExtensibleDocumented
     {
         return $this->operation[$name];
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation[]
      */

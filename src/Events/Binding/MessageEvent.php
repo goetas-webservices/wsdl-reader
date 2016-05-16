@@ -1,20 +1,27 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Events\Binding;
 
-use Symfony\Component\EventDispatcher\Event;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation;
-use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage;
 use GoetasWebservices\XML\WSDLReader\Events\WsdlEvent;
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\OperationMessage;
+use Symfony\Component\EventDispatcher\Event;
 
 class MessageEvent extends WsdlEvent
 {
 
-    protected $Fault;
+    protected $type;
+    protected $message;
 
-    public function __construct(OperationMessage $Fault, \DOMElement $node)
+    /**
+     * MessageEvent constructor.
+     * @param OperationMessage $message
+     * @param \DOMElement $node
+     * @param $type
+     */
+    public function __construct(OperationMessage $message, \DOMElement $node, $type)
     {
         parent::__construct($node);
-        $this->Fault = $Fault;
+        $this->message = $message;
+        $this->type = $type;
     }
 
     /**
@@ -22,7 +29,16 @@ class MessageEvent extends WsdlEvent
      */
     public function getOperationMessage()
     {
-        return $this->Fault;
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
+
 

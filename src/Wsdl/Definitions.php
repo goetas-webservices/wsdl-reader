@@ -2,6 +2,7 @@
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
 
 use GoetasWebservices\XML\XSDReader\Schema\Schema;
+
 /**
  * XSD Type: tDefinitions
  */
@@ -60,6 +61,7 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->targetNamespace;
     }
+
     /**
      * @param $targetNamespace string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\TDefinitions
@@ -78,6 +80,7 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->name;
     }
+
     /**
      * @param $name string
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\TDefinitions
@@ -134,6 +137,7 @@ class Definitions extends ExtensibleDocumented
         $this->message[$message->getName()] = $message;
         return $this;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message
      */
@@ -143,6 +147,7 @@ class Definitions extends ExtensibleDocumented
             return $this->message[$name];
         }
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Message[]
      */
@@ -184,6 +189,7 @@ class Definitions extends ExtensibleDocumented
         $this->binding[$binding->getName()] = $binding;
         return $this;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
      */
@@ -193,6 +199,7 @@ class Definitions extends ExtensibleDocumented
             return $this->binding[$name];
         }
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding[]
      */
@@ -209,6 +216,7 @@ class Definitions extends ExtensibleDocumented
         $this->service[$service->getName()] = $service;
         return $this;
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Service
      */
@@ -218,6 +226,7 @@ class Definitions extends ExtensibleDocumented
             return $this->service[$name];
         }
     }
+
     /**
      * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Service[]
      */
@@ -255,6 +264,7 @@ class Definitions extends ExtensibleDocumented
     {
         return $this->findSomething('getService', $name, $namespace);
     }
+
     /**
      * @param string $name
      * @param string $namespace
