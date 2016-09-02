@@ -1,5 +1,6 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
+use GoetasWebservices\XML\WSDLReader\Exception\PartNotFoundException;
 
 /**
  * XSD Type: tMessage
@@ -69,7 +70,10 @@ class Message extends ExtensibleDocumented
      */
     public function getPart($name)
     {
-        return $this->part[$name];
+        if (isset($this->part[$name])) {
+            return $this->part[$name];
+        }
+        throw new PartNotFoundException("The part named $name can not be found inside $this->name message");
     }
 
 }

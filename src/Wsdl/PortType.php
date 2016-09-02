@@ -1,5 +1,6 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
+use GoetasWebservices\XML\WSDLReader\Exception\OperationNotFoundException;
 
 /**
  * XSD Type: tPortType
@@ -56,7 +57,10 @@ class PortType extends ExtensibleAttributesDocumented
      */
     public function getOperation($name)
     {
-        return $this->operation[$name];
+        if (isset($this->operation[$name])) {
+            return $this->operation[$name];
+        }
+        throw new OperationNotFoundException("The operation named $name can not be found inside $this->name port type");
     }
 
     /**

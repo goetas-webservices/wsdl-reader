@@ -1,5 +1,6 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
+use GoetasWebservices\XML\WSDLReader\Exception\PortNotFoundException;
 
 /**
  * XSD Type: tService
@@ -54,7 +55,10 @@ class Service extends ExtensibleDocumented
 
     public function getPort($name)
     {
-        return $this->port[$name];
+        if (isset($this->port[$name])){
+            return $this->port[$name];
+        }
+        throw new PortNotFoundException("The port named $name can not be found inside $this->name");
     }
 
     /**

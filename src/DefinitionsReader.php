@@ -29,6 +29,7 @@ use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
 use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Param;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Service;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Service\Port;
+use GoetasWebservices\XML\XSDReader\Exception\IOException;
 use GoetasWebservices\XML\XSDReader\Schema\Schema;
 use GoetasWebservices\XML\XSDReader\SchemaReader;
 use GoetasWebservices\XML\XSDReader\Utils\UrlUtils;
@@ -509,8 +510,11 @@ class DefinitionsReader
     private function getDOM($file)
     {
         $xml = new DOMDocument('1.0', 'UTF-8');
-        if (!$xml->load($file)) {
+        if (!$xml->load($file, LIBXML_NONET)) {
+            print_r(libxml_get_errors());
+            die();
             throw new IOException("Can't load the file $file");
+
         }
         return $xml;
     }

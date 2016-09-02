@@ -1,6 +1,7 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
 
+use GoetasWebservices\XML\WSDLReader\Exception\ServiceNotFoundException;
 use GoetasWebservices\XML\XSDReader\Schema\Schema;
 
 /**
@@ -225,6 +226,7 @@ class Definitions extends ExtensibleDocumented
         if (isset($this->service[$name])) {
             return $this->service[$name];
         }
+        throw new ServiceNotFoundException("The service named $name can not be found inside $this->name");
     }
 
     /**
