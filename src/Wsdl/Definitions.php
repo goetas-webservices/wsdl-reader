@@ -183,6 +183,18 @@ class Definitions extends ExtensibleDocumented
     }
 
     /**
+     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType[]
+     */
+    public function getAllPortTypes()
+    {
+        $types = $this->getPortTypes();
+        foreach ($this->getImports() as $child) {
+            $types = array_merge($types, $child->getAllPortTypes());
+        }
+        return $types;
+    }
+
+    /**
      * @param $binding \GoetasWebservices\XML\WSDLReader\Wsdl\Binding
      */
     public function addBinding(\GoetasWebservices\XML\WSDLReader\Wsdl\Binding $binding)
