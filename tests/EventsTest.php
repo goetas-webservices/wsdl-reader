@@ -29,8 +29,8 @@ class EventsTest extends \PHPUnit_Framework_TestCase
     public function testReadFile()
     {
         $events = array();
-        $this->dispatcher->addListener("#", function (Event $e) use (&$events) {
-            $events[] = $e;
+        $this->dispatcher->addListener("#", function (Event $e, $name) use (&$events) {
+            $events[] = [$e, $name];
         });
         $this->reader->readFile(__DIR__ . '/resources/base-wsdl-events.wsdl');
 
@@ -73,12 +73,11 @@ class EventsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(count($expected), $events);
 
         foreach ($expected as $index => $expectedData) {
-            $event = $events[$index];
-
+            list($event, $name) = $events[$index];
             $this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);
             $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Events\WsdlEvent', $event);
             $this->assertInstanceOf($expectedData[1], $event, "Event name '$expectedData[0]'");
-            $this->assertEquals($expectedData[0], $event->getName());
+            $this->assertEquals($expectedData[0], $name);
         }
     }
 
