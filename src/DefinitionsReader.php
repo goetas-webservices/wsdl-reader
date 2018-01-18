@@ -154,13 +154,8 @@ class DefinitionsReader
 
     private function loadTypes(Definitions $definitions, \DOMElement $node)
     {
-        foreach ($node->childNodes as $k => $childNode) {
-            if (($childNode instanceof \DOMElement) && $childNode->namespaceURI === self::XSD_NS && $childNode->localName == 'schema') {
-
-                $schema = $this->reader->readNode($childNode, $childNode->ownerDocument->documentURI . "#" . $k);
-                $definitions->getSchema()->addSchema($schema);
-            }
-        }
+        $schema = $this->reader->readNodes(iterator_to_array($node->childNodes), $node->ownerDocument->documentURI);
+        $definitions->getSchema()->addSchema($schema);
     }
 
     private function loadBinding(Definitions $definitions, DOMElement $node)

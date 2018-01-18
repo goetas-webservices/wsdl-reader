@@ -3,6 +3,8 @@ namespace GoetasWebservices\XML\WSDLReader\Tests;
 
 use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
+use GoetasWebservices\XML\XSDReader\Schema\Element\ElementDef;
+use GoetasWebservices\XML\XSDReader\Schema\Type\ComplexType;
 
 class BaseTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,6 +26,17 @@ class BaseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Wsdl\Definitions', $definitions);
         $this->makeAssertionsLoad($definitions);
+    }
+
+    public function testReadCrossReferenceDefinitions()
+    {
+        $definitions = $this->reader->readFile(__DIR__ . '/resources/multi-schema-cross-reference.wsdl');
+
+        $details = $definitions->getSchema()->findType("outerType", "http://tempuri.org/1");
+        $this->assertInstanceOf(ComplexType::class, $details);
+
+        $details = $definitions->getSchema()->findElement("outerEl", "http://tempuri.org/1");
+        $this->assertInstanceOf(ElementDef::class, $details);
     }
 
     public function testReadString()
