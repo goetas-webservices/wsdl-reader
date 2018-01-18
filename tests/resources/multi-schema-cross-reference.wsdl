@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  targetNamespace="http://tempuri.org/0">
+    <wsdl:types>
+        <xs:schema targetNamespace="http://tempuri.org/1" xmlns:t2="http://tempuri.org/2">
+            <xs:import namespace="http://tempuri.org/2"/>
+            <xs:element name="outerEl" type="t2:inner"/>
+            <xs:complexType name="outerType">
+                <xs:attribute type="t2:innerAttrType" name="att"/>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema targetNamespace="http://tempuri.org/2">
+            <xs:complexType name="inner">
+                <xs:attribute name="inner_attr"/>
+            </xs:complexType>
+            <xs:simpleType name="innerAttrType">
+                <xs:restriction base="xs:string"/>
+            </xs:simpleType>
+        </xs:schema>
+    </wsdl:types>
+</wsdl:definitions>
