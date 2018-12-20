@@ -3,28 +3,30 @@
     "description": "Pure PHP WSDL parser",
     "keywords": ["xsd", "xml", "soap", "webservice", "wsdl"],
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Asmir Mustafic",
-            "email": "goetas@gmail.com"
-        }
-    ],
+    "authors": [{
+        "name": "Asmir Mustafic",
+        "email": "goetas@gmail.com"
+    }],
     "require": {
         "php": "^7.1",
         "goetas-webservices/xsd-reader": "^0.3@dev",
-        "symfony/event-dispatcher" : "^2.4||^3.0"
+        "symfony/event-dispatcher": "^2.4||^3.0||^4.0"
     },
-    "require-dev" : {
-        "phpunit/phpunit" : "^4.8|^5.0",
+    "require-dev": {
+        "phpunit/phpunit": "^4.8|^5.0",
         "jmikola/wildcard-event-dispatcher": "~1.0"
     },
     "autoload": {
-        "psr-4": { "GoetasWebservices\\XML\\WSDLReader\\": "src/" }
+        "psr-4": {
+            "GoetasWebservices\\XML\\WSDLReader\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "GoetasWebservices\\XML\\WSDLReader\\Tests\\": "tests/" }
-    },    
-    "extra":{
+        "psr-4": {
+            "GoetasWebservices\\XML\\WSDLReader\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"
         }
