@@ -506,10 +506,7 @@ class DefinitionsReader
     {
         $xml = new DOMDocument('1.0', 'UTF-8');
         if (!$xml->load($file, LIBXML_NONET)) {
-            print_r(libxml_get_errors());
-            die();
             throw new IOException("Can't load the file $file");
-
         }
         return $xml;
     }
