@@ -44,7 +44,7 @@ $definitions = $reader->readFile("http://www.example.com/exaple.wsdl");
 foreach ($definitions->getServices() as $service){
 
 }
-foreach ($definitions->getProtTypes() as $portType){
+foreach ($definitions->getPortTypes() as $portType){
 
 }
 foreach ($definitions->getBindings() as $binding){
