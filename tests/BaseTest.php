@@ -5,8 +5,9 @@ use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
 use GoetasWebservices\XML\XSDReader\Schema\Element\ElementDef;
 use GoetasWebservices\XML\XSDReader\Schema\Type\ComplexType;
+use PHPUnit\Framework\TestCase;
 
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
 
     /**
@@ -15,7 +16,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected $reader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->reader = new DefinitionsReader();
     }
