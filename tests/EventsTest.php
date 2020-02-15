@@ -3,6 +3,7 @@ namespace GoetasWebservices\XML\WSDLReader\Tests;
 
 use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class EventsTest extends TestCase
@@ -22,17 +23,31 @@ class EventsTest extends TestCase
 
     public function setUp(): void
     {
-        $this->markTestSkipped('must be revisited.');
-        //$this->dispatcher = new WildcardEventDispatcher();
+        //TODO use WildcardEventDispatcher again
+        $this->dispatcher = new EventDispatcher();
         $this->reader = new DefinitionsReader(null, $this->dispatcher);
     }
 
     public function testReadFile()
     {
         $events = array();
-        $this->dispatcher->addListener("#", function (Event $e, $name) use (&$events) {
+        $closure = function (Event $e, $name) use (&$events) {
             $events[] = [$e, $name];
-        });
+        };
+        $this->dispatcher->addListener("definitions_start", $closure);
+        $this->dispatcher->addListener("service", $closure);
+        $this->dispatcher->addListener("service.port", $closure);
+        $this->dispatcher->addListener("message", $closure);
+        $this->dispatcher->addListener("message.part", $closure);
+        $this->dispatcher->addListener("portType", $closure);
+        $this->dispatcher->addListener("portType.operation", $closure);
+        $this->dispatcher->addListener("portType.operation.param", $closure);
+        $this->dispatcher->addListener("portType.operation.fault", $closure);
+        $this->dispatcher->addListener("binding", $closure);
+        $this->dispatcher->addListener("binding.operation", $closure);
+        $this->dispatcher->addListener("binding.operation.message", $closure);
+        $this->dispatcher->addListener("binding.operation.fault", $closure);
+        $this->dispatcher->addListener("definitions_end", $closure);
         $this->reader->readFile(__DIR__ . '/resources/base-wsdl-events.wsdl');
 
         $expected = [];

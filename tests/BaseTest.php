@@ -3,6 +3,7 @@ namespace GoetasWebservices\XML\WSDLReader\Tests;
 
 use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
+use GoetasWebservices\XML\WSDLReader\Wsdl\TypeNotFoundException;
 use GoetasWebservices\XML\XSDReader\Schema\Element\ElementDef;
 use GoetasWebservices\XML\XSDReader\Schema\Type\ComplexType;
 use PHPUnit\Framework\TestCase;
@@ -74,11 +75,9 @@ class BaseTest extends TestCase
         $this->assertNotNull($definitions->findService('StockQuote', 'http://www.example.com'));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testTypeNotFound()
     {
+        $this->expectException(TypeNotFoundException::class);
         $definitions = $this->reader->readFile(__DIR__ . '/resources/base-wsdl-import.wsdl');
         $this->assertNotNull($definitions->findBinding('StockQuoteSoap2', 'http://www.example.com'));
     }
