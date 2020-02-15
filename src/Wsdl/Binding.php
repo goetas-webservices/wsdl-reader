@@ -1,6 +1,8 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
 
+use GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation;
+
 /**
  * XSD Type: tBinding
  */
@@ -13,7 +15,7 @@ class Binding extends ExtensibleDocumented
     protected $name;
 
     /**
-     * @var \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
+     * @var PortType
      */
     protected $type;
 
@@ -49,7 +51,7 @@ class Binding extends ExtensibleDocumented
 
 
     /**
-     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
+     * @return PortType
      */
     public function getType()
     {
@@ -58,7 +60,7 @@ class Binding extends ExtensibleDocumented
 
     /**
      * @param $type string
-     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType
+     * @return PortType
      */
     public function setType(PortType $type)
     {
@@ -68,16 +70,17 @@ class Binding extends ExtensibleDocumented
 
 
     /**
-     * @param $operation \GoetasWebservices\XML\WSDLReader\Wsdl\BindingOperation
+     * @param Operation $operation
+     * @return Binding
      */
-    public function addOperation(\GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation $operation)
+    public function addOperation(Operation $operation)
     {
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
 
     /**
-     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation
+     * @return Operation
      */
     public function getOperation($name)
     {
@@ -85,7 +88,7 @@ class Binding extends ExtensibleDocumented
     }
 
     /**
-     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\Binding\Operation[]
+     * @return Operation[]
      */
     public function getOperations()
     {

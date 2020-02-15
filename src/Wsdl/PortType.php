@@ -1,6 +1,8 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
+
 use GoetasWebservices\XML\WSDLReader\Exception\OperationNotFoundException;
+use GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation;
 
 /**
  * XSD Type: tPortType
@@ -44,16 +46,16 @@ class PortType extends ExtensibleAttributesDocumented
 
 
     /**
-     * @param $operation \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @param $operation Operation
      */
-    public function addOperation(\GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation $operation)
+    public function addOperation(Operation $operation)
     {
         $this->operation[$operation->getName()] = $operation;
         return $this;
     }
 
     /**
-     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation
+     * @return Operation
      */
     public function getOperation($name)
     {
@@ -64,7 +66,7 @@ class PortType extends ExtensibleAttributesDocumented
     }
 
     /**
-     * @return \GoetasWebservices\XML\WSDLReader\Wsdl\PortType\Operation[]
+     * @return Operation[]
      */
     public function getOperations()
     {

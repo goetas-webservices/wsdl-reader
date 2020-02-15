@@ -1,5 +1,6 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Wsdl;
+
 use GoetasWebservices\XML\WSDLReader\Exception\PartNotFoundException;
 
 /**
