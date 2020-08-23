@@ -5,8 +5,9 @@ use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 use GoetasWebservices\XML\WSDLReader\Wsdl\Definitions;
 use GoetasWebservices\XML\XSDReader\Schema\Element\ElementDef;
 use GoetasWebservices\XML\XSDReader\Schema\Type\ComplexType;
+use PHPUnit\Framework\TestCase;
 
-class BaseTest extends \PHPUnit_Framework_TestCase
+class BaseTest extends TestCase
 {
 
     /**
@@ -15,7 +16,7 @@ class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected $reader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->reader = new DefinitionsReader();
     }
@@ -73,11 +74,9 @@ class BaseTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($definitions->findService('StockQuote', 'http://www.example.com'));
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testTypeNotFound()
     {
+        $this->expectException(\Exception::class);
         $definitions = $this->reader->readFile(__DIR__ . '/resources/base-wsdl-import.wsdl');
         $this->assertNotNull($definitions->findBinding('StockQuoteSoap2', 'http://www.example.com'));
     }
