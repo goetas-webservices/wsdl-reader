@@ -35,6 +35,7 @@ use GoetasWebservices\XML\XSDReader\SchemaReader;
 use GoetasWebservices\XML\XSDReader\Utils\UrlUtils;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 
 class DefinitionsReader
 {
@@ -60,7 +61,7 @@ class DefinitionsReader
     public function __construct(SchemaReader $reader = null, EventDispatcherInterface $dispatcher = null)
     {
         $this->reader = $reader ?: new SchemaReader();
-        $this->dispatcher = $dispatcher ?: new EventDispatcher();
+        $this->dispatcher = LegacyEventDispatcherProxy::decorate($dispatcher ?: new EventDispatcher());
     }
 
     /**
