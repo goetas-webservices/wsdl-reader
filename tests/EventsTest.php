@@ -4,7 +4,6 @@ namespace GoetasWebservices\XML\WSDLReader\Tests;
 use GoetasWebservices\XML\WSDLReader\DefinitionsReader;
 use Jmikola\WildcardEventDispatcher\WildcardEventDispatcher;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\Event;
 
 class EventsTest extends TestCase
 {
@@ -30,7 +29,7 @@ class EventsTest extends TestCase
     public function testReadFile()
     {
         $events = array();
-        $this->dispatcher->addListener("#", function (Event $e, $name) use (&$events) {
+        $this->dispatcher->addListener("#", function ($e, $name) use (&$events) {
             $events[] = [$e, $name];
         });
         $this->reader->readFile(__DIR__ . '/resources/base-wsdl-events.wsdl');
@@ -75,7 +74,13 @@ class EventsTest extends TestCase
 
         foreach ($expected as $index => $expectedData) {
             [$event, $name] = $events[$index];
-            $this->assertInstanceOf('Symfony\Component\EventDispatcher\Event', $event);
+            $this->assertThat(
+                $event,
+                $this->logicalOr(
+                    $this->isInstanceOf('\Symfony\Component\EventDispatcher\Event'),
+                    $this->isInstanceOf('\Symfony\Contracts\EventDispatcher\Event')
+                )
+            );
             $this->assertInstanceOf('GoetasWebservices\XML\WSDLReader\Events\WsdlEvent', $event);
             $this->assertInstanceOf($expectedData[1], $event, "Event name '$expectedData[0]'");
             $this->assertEquals($expectedData[0], $name);

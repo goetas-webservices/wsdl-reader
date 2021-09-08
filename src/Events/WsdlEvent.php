@@ -1,26 +1,50 @@
 <?php
 namespace GoetasWebservices\XML\WSDLReader\Events;
 
-use Symfony\Component\EventDispatcher\Event;
+use Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
 
-abstract class WsdlEvent extends Event
-{
-    /**
-     *
-     * @var \DOMElement
-     */
-    protected $node;
-
-    public function __construct(\DOMElement $node)
+if (interface_exists(PsrEventDispatcherInterface::class)) {
+    abstract class WsdlEvent extends \Symfony\Contracts\EventDispatcher\Event
     {
-        $this->node = $node;
+        /**
+         *
+         * @var \DOMElement
+         */
+        protected $node;
+
+        public function __construct(\DOMElement $node)
+        {
+            $this->node = $node;
+        }
+
+        /**
+         * @return \DOMElement
+         */
+        public function getNode()
+        {
+            return $this->node;
+        }
     }
-
-    /**
-     * @return \DOMElement
-     */
-    public function getNode()
+} else {
+    abstract class WsdlEvent extends \Symfony\Component\EventDispatcher\Event
     {
-        return $this->node;
+        /**
+         *
+         * @var \DOMElement
+         */
+        protected $node;
+
+        public function __construct(\DOMElement $node)
+        {
+            $this->node = $node;
+        }
+
+        /**
+         * @return \DOMElement
+         */
+        public function getNode()
+        {
+            return $this->node;
+        }
     }
 }
